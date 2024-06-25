@@ -5,18 +5,20 @@
   import type { T_Date, T_SearchDate, T_TIME } from '~/types';
   import { Swiper, SwiperSlide } from 'swiper/vue';
   const props = defineProps<{
-    dates: T_Date[],
+    dates: T_Date[]
     times: T_TIME[]
-    searchDate: T_SearchDate
-    onSelectTime: (time: T_TIME) => void
-    onSelectDate: (date: T_Date) => void
-    setDateHandler: (fn: () => void) => void
+    submit: () => void
   }>()
 
+  const dateFull = defineModel<T_SearchDate>()
+  const customPosition = () => ({ top: 0, left: -280 });
 </script>
 
 <template>
-  <div class="border-y border-white py-[10px] px-2">
+  <div
+    class="border-y border-white py-[10px] px-2 flex"
+    v-if="dateFull"
+  >
     <Swiper
       :slides-per-view="'auto'"
       :space-between="20"
@@ -27,11 +29,11 @@
         :key="i"
       >
         <div
-          @click="onSelectDate(date)"
+          @click="dateFull.date.full = date.full"
           class="flex flex-col w-fit"
         >
           <span
-            :class="{ 'text-orange': searchDate.date.date === date.date }"
+            :class="{ 'text-orange': dateFull?.date.full.getDate() === date.full.getDate() }"
             class="text-18 whitespace-nowrap group-hover:text-orange c-hover"
           >
             {{ date.formattedDate }}
@@ -40,8 +42,31 @@
         </div>
       </SwiperSlide>
     </Swiper>
+    <vue-date-picker
+      min
+      v-model="dateFull.date.full"
+      :min-date="getNextDateFull(new Date(), 1)"
+      locale="ru"
+      auto-apply
+      dark
+      no-today
+      disable-year-select
+      hide-offset-dates
+      :enable-time-picker="false"
+      :alt-position="customPosition"
+    >
+      <template #trigger>
+        <Icon
+          name="Calendar"
+          size="30"
+        />
+      </template>
+    </vue-date-picker>
   </div>
-  <div class="border-b border-white py-[10px] px-2">
+  <div
+    class="border-b border-white py-[10px] px-2"
+    v-if="dateFull"
+  >
     <Swiper
       :slides-per-view="'auto'"
       :space-between="20"
@@ -52,8 +77,8 @@
         :key="i"
       >
         <div
-          @click="onSelectTime(time)"
-          :class="{ 'text-orange': searchDate.time === time }"
+          @click="dateFull.time = time"
+          :class="{ 'text-orange': dateFull.time === time }"
           class="c-hover text-18 hover:text-orange"
         >
           {{ time }}

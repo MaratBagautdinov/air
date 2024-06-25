@@ -22,7 +22,7 @@
   const dates = computed(() => {
     const result: T_Date[] = []; // пикаем выбранную дату как дефолтную
     const daysCountBetweenNowAndSelected = daysCountBetween(dateFull.value.date.full, new Date());
-    const firstI = (daysCountBetweenNowAndSelected < 3 ? 0 : daysCountBetweenNowAndSelected - 3);
+    const firstI = (daysCountBetweenNowAndSelected < 2 ? 0 : daysCountBetweenNowAndSelected - 2);
     for (let i = firstI; i <= (firstI + 7); i++) {
       const date = getNextDateFull(new Date(), 1);
       date.setDate(date.getDate() + i);
@@ -60,15 +60,13 @@
       <span class="text-22">{{ date.date.formattedDate }}</span>
       <span class="text-22 text-gray">в {{ date.time }}</span>
     </div>
-    <!-- <SearchDateSelectSwiper
+    <SearchDateSelectSwiper
       v-else
-      :dates
+      :dates="dates.slice(0, Math.round(windowWidth / 100))"
       :times
-      :setDateHandler
-      :onSelectTime
-      :searchDate="date"
-      v-model:date="dareFull"
-    /> -->
+      :submit
+      v-model="dateFull"
+    />
     <SearchDateSelectPop
       :dates
       :times
