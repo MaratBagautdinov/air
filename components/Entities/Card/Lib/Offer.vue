@@ -50,3 +50,10 @@
     </div>
   </div>
 </template>
+<style scoped>
+  @media (max-width:920px) {
+    h3 {
+      font-size: large;
+    }
+  }
+</style>

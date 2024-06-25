@@ -77,7 +77,7 @@
 </script>
 
 <template>
-  <div class="from-block flex flex-col gap-4 h-full w-full ">
+  <div class="from-block flex flex-col gap-4 h-full w-full p-2">
     <span class="">{{ texts.title[lineType] }}</span>
 
     <button
@@ -111,9 +111,11 @@
     <transition name="slide-up bg-black h-full">
       <div
         v-if="isOpened"
-        class=" pt-0 absolute inset-0 z-50 w-full h-full max-[640px]:px-2 box-border"
+        class=" pt-0 absolute inset-0 z-50 w-full h-full box-border"
       >
-        <div class="bg-dark p-5 pb-0 h-full max-h-[100vh] grid grid-rows-[auto_1fr] gap-2 box-border">
+        <div
+          class="bg-dark p-5 max-[920px]:pr-1 max-[920px]:pl-1 pb-0 h-full max-h-[100vh] grid grid-rows-[auto_1fr] gap-2 box-border"
+        >
           <div class="sticky top-0 bg-dark w-full">
             <div class="form-head w-full flex justify-between">
               <span>{{ texts.title[lineType] }}</span>
@@ -175,4 +177,12 @@
   </div>
 </template>
 
-<style scoped></style>
+<style>
+  @media (max-width:920px) {
+    .citySelect-card {
+      width: 100vw;
+      height: 100%;
+      padding: 0;
+    }
+  }
+</style>

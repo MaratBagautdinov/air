@@ -1,5 +1,6 @@
 <template>
-    <div class="border px-[22px] py-5 border-white flex flex-col relative max-[640px]:border-x-0 max-[640px]:px-0">
+    <div
+        class="border px-[22px] py-5 border-white flex flex-col relative max-[640px]:static max-[640px]:border-x-0 max-[640px]:px-0">
         <div class="grid grid-cols-3 gap-2 h-full pb-5 max-[640px]:grid-cols-2 max-[640px]:gap-y-[40px]">
             <SearchCitySelect line-type="from" />
             <SearchCitySelect line-type="to" />

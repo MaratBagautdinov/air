@@ -1,9 +1,12 @@
-<script setup lang="ts">
-import type { T_Date } from "~/types.js";
-const { fromPort, toPort, dateBack, datePort, isBackLine } = storeToRefs(useStore());
-const { sendPorts, setDateBack, setDatePort, setListCards } = useStore();
+<script
+  setup
+  lang="ts"
+>
+  import type { T_Date } from "~/types.js";
+  const { fromPort, toPort, dateBack, datePort, isBackLine } = storeToRefs(useStore());
+  const { sendPorts, setDateBack, setDatePort, setListCards } = useStore();
 
-const router = useRouter();
+  const router = useRouter();
 
 
 </script>
@@ -47,7 +50,11 @@ const router = useRouter();
 </template>
 
 <style>
-.citySelect-card {
-  flex-direction: row;
-}
+  @media (min-width:920px) {
+    .citySelect-card {
+      flex-direction: row;
+    }
+  }
+
+
 </style>

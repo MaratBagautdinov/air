@@ -18,7 +18,7 @@
     return useState<number>("winWidth").value > 640 ?
       "flex w-full justify-between"
       :
-      "flex gap-[10px] justify-between flex-col"
+      "flex gap-[10px] justify-between flex-col-reverse w-full"
   })
 </script>
 

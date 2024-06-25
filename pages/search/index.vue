@@ -47,26 +47,12 @@
 <template>
   <div class="l-wrapper">
     <div class="py-[70px] relative max-[640px]:py-[30px]">
-
-      <div
-        v-if="windowWidth <= 640"
-        class="border-b border-white pb-[18px] px-2 flex items-center justify-between"
-      >
-        <span class="text-24">
-          {{ listCardsFilterd.length }}
-          {{ getWordEnd(listCardsFilterd.length, ["вариантов", "вариант", "варианта"]) }}
-        </span>
-      </div>
-
       <search-header />
 
       <div
-        class="py-[20px] border-b border-white flex items-center justify-between max-[640px]:px-2 max-[640px]:w-full max-[640px]:border-b-0"
+        class="count_and_filter py-[20px] border-b border-white flex items-center justify-between max-[640px]:pt-0 max-[640px]:px-2 max-[640px]:w-full max-[640px]:border-b-0"
       >
-        <span
-          v-if="windowWidth >= 640"
-          :class="`text-24 ${(getPortsState.pending || route.params.slug === '2') ? 'shimmer' : ''}`"
-        >
+        <span :class="` count-bl text-24 ${(getPortsState.pending || route.params.slug === '2') ? 'shimmer' : ''}`">
           {{ listCardsFilterd.length }}
           {{ getWordEnd(listCardsFilterd.length, ["вариантов", "вариант", "варианта"]) }}
         </span>
@@ -86,7 +72,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 
   @media (max-width:920px) {
     .head-bottom {
@@ -100,6 +86,18 @@
       align-items: center;
       padding: 1rem;
       border-radius: 6px;
+    }
+
+    .count_and_filter {
+      flex-direction: column;
+
+      .count-bl {
+        width: 100%;
+        border-top: 1px solid #5e5e5e;
+        border-bottom: 1px solid #5e5e5e;
+        padding: 10px;
+        margin-bottom: 1rem
+      }
     }
   }
 </style>
