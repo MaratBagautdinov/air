@@ -31,6 +31,7 @@ export type T_Date = {
     date: string,
     formattedDate: string,
     day: string,
+    full: Date
 }
 export type T_TIME = string
 export interface I_CardsQuery {

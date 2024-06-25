@@ -27,11 +27,11 @@
             <li
               v-for="(date, i) in dates"
               :key="date.date"
-              @click="dateFull.date.date = date.date"
+              @click="dateFull.date.full = date.full"
               class="flex flex-col group"
             >
               <span
-                :class="{ 'text-orange': dateFull?.date.date === date.date }"
+                :class="{ 'text-orange': dateFull?.date.full.getDate() === date.full.getDate() }"
                 class="text-22 whitespace-nowrap group-hover:text-orange c-hover"
               >
                 {{ date.formattedDate }}
@@ -41,8 +41,8 @@
             <li>
               <vue-date-picker
                 min
-                v-model="dateFull.date"
-                :min-date="new Date()"
+                v-model="dateFull.date.full"
+                :min-date="getNextDateFull(new Date(), 1)"
                 locale="ru"
                 auto-apply
                 dark

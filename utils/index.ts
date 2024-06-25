@@ -106,11 +106,11 @@ export const getTomorrowDate = () => {
     return getNextDateFull(d, 1).toISOString().split("T")[0];
 };
 export const setDate = (date: Date): T_Date => {
-
     return {
         date: date.toISOString().split("T")[0],
         formattedDate: formatDate(date),
         day: formatDay(date),
+        full: date
     };
 };
 export const formatDay = (date: Date): string => {

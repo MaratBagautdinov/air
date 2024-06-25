@@ -40,7 +40,7 @@
       >
         <EntitiesCardLibPhoto
           :salonPhoto="plane.aircraft_picture_urls?.salon"
-          :planeRoute="(i === 0 ? 'to' : 'from')"
+          :planeRoute="isBackLine ? (i === 0 ? 'to' : 'from') : 'none'"
           :maxW="'220'"
           class="card-item-lib-photo"
         />
@@ -49,6 +49,7 @@
             :aircraft_class="plane.aircraft_class"
             :aircraft_type="plane.aircraft_type"
             :legs="plane.legs"
+            :planeRoute="(i === 0 ? 'to' : 'from')"
           />
           <EntitiesCardLibOffer
             :avatar="plane.aircraft_picture_urls.avatar"
