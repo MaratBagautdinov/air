@@ -19,7 +19,6 @@
   }
   watch([isBackLine], handleSearch)
   const route = useRoute()
-  console.log(getPortsState.value.error);
 </script>
 
 <template>

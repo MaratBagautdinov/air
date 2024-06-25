@@ -23,7 +23,6 @@
     const result: T_Date[] = []; // пикаем выбранную дату как дефолтную
     const daysCountBetweenNowAndSelected = daysCountBetween(dateFull.value.date.full, new Date());
     const firstI = (daysCountBetweenNowAndSelected < 3 ? 0 : daysCountBetweenNowAndSelected - 3);
-    console.log(firstI);
     for (let i = firstI; i <= (firstI + 7); i++) {
       const date = getNextDateFull(new Date(), 1);
       date.setDate(date.getDate() + i);
