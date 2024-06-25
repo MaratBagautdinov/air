@@ -16,22 +16,26 @@
     </div>
 </template>
 
-<script setup lang="ts">
-const { sendPorts, setDatePort } = useStore();
-const { datePort } = storeToRefs(useStore());
-const handleSearch = async () => {
-    navigateTo({
-        path: `/search/`,
-    })
-    await sendPorts().then((res) => {
-        if (res.error) {
-            alert(res.error.text)
-            return
-        } else {
-            useRouter().replace(`/search/${res.id}`)
-        }
-    })
-};
+<script
+    setup
+    lang="ts"
+>
+    const { sendPorts, setDatePort } = useStore();
+    const { datePort } = storeToRefs(useStore());
+    const handleSearch = async () => {
+        navigateTo({
+            path: `/search/`,
+        })
+        await sendPorts().then((res) => {
+
+            if (res.error) {
+                alert(res.error.text)
+                return
+            } else {
+                useRouter().replace(`/search/${res.id}`)
+            }
+        })
+    };
 
 </script>
 

@@ -24,6 +24,7 @@ interface I_STATE {
     currencyFilter: T_Currency,
     sortBy: T_sortBy,
     aircraftTypeFilter: string,
+    errorText: string
 }
 
 export const useStore = defineStore("searchFly", {
@@ -53,6 +54,7 @@ export const useStore = defineStore("searchFly", {
         currencyFilter: "RUB",
         sortBy: "priceAsc",
         aircraftTypeFilter: "",
+        errorText: ""
     }),
     getters: {},
     actions: {
@@ -148,6 +150,7 @@ export const useStore = defineStore("searchFly", {
         async sendPorts(): Promise<I_CardsAPI> {
             this.getPortsState.pending = true;
             this.getPortsState.error.status = false;
+            this.getPortsState.error.msg = '';
 
             const formattedDate = formatDateToISO(this.datePort.date.date, this.datePort.time);
             const formattedDateBack = this.dateBack ? formatDateToISO(this.dateBack.date.date, this.dateBack.time) : '';
@@ -164,6 +167,13 @@ export const useStore = defineStore("searchFly", {
                         ...(this.isBackLine && formattedDateBack && { pax_back: this.passengerCount }),
                     },
                 });
+                if (res.error) {
+                    console.log(res);
+
+                    this.getPortsState.error.status = true;
+                    this.getPortsState.error.msg = res.error.text;
+                    return res;
+                }
                 return res;
             } catch (error) {
                 console.error(error);

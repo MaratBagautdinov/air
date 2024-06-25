@@ -32,19 +32,21 @@
 <template>
   <div :class="offerClass">
     <h3 :class="`text-${windowWidth > 640 ? 30 : 16} font-light uppercase`">{{ formatPrice(price) }}</h3>
-    <div class="flex items-center justify-end gap-[40px]">
-      <span :class="`text-${fontClass} text-gray`">{{ aircraft_year_of_creation }}</span>
-      <span :class="`text-${fontClass} text-gray`">
-        {{ max_pax }}
-        {{ getWordEnd(max_pax, ["мест", "место", "места"]) }}
-      </span>
+    <div :class="`flex gap-4 align-bottom ${windowWidth > 1000 ? '' : 'flex-col-reverse'}`">
+      <nuxt-img
+        v-if="avatar && windowWidth > 640"
+        loading="lazy"
+        alt="aircraft-img"
+        class="w-[200px]"
+        :src="useApiNajet() + avatar"
+      />
+      <div class="flex items-center justify-end gap-[40px]">
+        <span :class="`text-${fontClass} text-gray`">{{ aircraft_year_of_creation }}</span>
+        <span :class="`text-${fontClass} text-gray`">
+          {{ max_pax }}
+          {{ getWordEnd(max_pax, ["мест", "место", "места"]) }}
+        </span>
+      </div>
     </div>
-    <nuxt-img
-      v-if="avatar && windowWidth > 640"
-      loading="lazy"
-      alt="aircraft-img"
-      class="w-[200px]"
-      :src="useApiNajet() + avatar"
-    />
   </div>
 </template>

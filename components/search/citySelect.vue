@@ -1,73 +1,81 @@
-<script setup lang="ts">
-import type { T_Port, T_PortType } from "~/types";
-import { TO_FROM } from "~/content";
+<script
+  setup
+  lang="ts"
+>
+  import type { T_Port, T_PortType } from "~/types";
+  import { TO_FROM } from "~/content";
 
-const { selectPort, sendPorts, setListCards } = useStore();
-const { toPort, fromPort, getPortsState } = storeToRefs(useStore());
+  const { selectPort, sendPorts, setListCards } = useStore();
+  const { toPort, fromPort, getPortsState } = storeToRefs(useStore());
 
-const props = defineProps<{
-  lineType: T_PortType
-}>()
-const port = {
-  'to': toPort,
-  'from': fromPort
-}[props.lineType]
-const isOpened = ref(false);
+  const props = defineProps<{
+    lineType: T_PortType
+  }>()
+  const port = {
+    'to': toPort,
+    'from': fromPort
+  }[props.lineType]
+  const portReferse = {
+    'from': toPort,
+    'to': fromPort
+  }[props.lineType]
 
-const openFromSearch = () => {
-  isOpened.value = true;
-};
+  const isOpened = ref(false);
 
-const searchQuery = ref("");
+  const openFromSearch = () => {
+    isOpened.value = true;
+  };
 
-const filteredFromList = computed(() => {
-  const query = searchQuery.value.toLowerCase().trim();
-  if (!query) return getPortsState.value.entity;
-  return getPortsState.value.entity?.filter((item) => {
-    return item?.name_rus?.toLowerCase().includes(query) || item?.city_rus?.toLowerCase().includes(query);
+  const searchQuery = ref("");
+
+  const filteredFromList = computed(() => {
+    const query = searchQuery.value.toLowerCase().trim();
+    if (!query) return getPortsState.value.entity;
+    return getPortsState.value.entity?.filter((item) => {
+      return item?.name_rus?.toLowerCase().includes(query) || item?.city_rus?.toLowerCase().includes(query);
+    });
   });
-});
 
-const highlightText = (text: string) => {
-  const query = searchQuery.value.toLowerCase().trim();
-  if (!query) return text;
+  const highlightText = (text: string) => {
+    const query = searchQuery.value.toLowerCase().trim();
+    if (!query) return text;
 
-  const parts = text.split(new RegExp(`(${query})`, "gi"));
-  return parts
-    .map((part) => (part.toLowerCase() === query ? `<b style="color: #FF8562;">${part}</b>` : part))
-    .join("");
-};
+    const parts = text.split(new RegExp(`(${query})`, "gi"));
+    return parts
+      .map((part) => (part.toLowerCase() === query ? `<b style="color: #FF8562;">${part}</b>` : part))
+      .join("");
+  };
 
-const pickPort = async (port: T_Port) => {
-  if ((toPort.value?.name && fromPort.value?.name) && toPort.value?.name === fromPort.value?.name) {
-    alert('Аэропорт вылета не может совпадать с аэропортом назначения.')
-    return;
+  const pickPort = async (portNew: T_Port) => {
+    if ((port.value?.name && portReferse.value?.name) && portReferse.value?.name === portNew.name) {
+      alert('Аэропорт вылета не может совпадать с аэропортом назначения.')
+    } else {
+      selectPort(props.lineType, portNew);
+      isOpened.value = false;
+      if (useRoute().path !== '/') {
+        navigateTo({
+          path: `/search/`,
+        })
+        await sendPorts().then((res) => {
+          setListCards(res.cards)
+          useRouter().replace({ path: "/search/" + res.id });
+        })
+      }
+    }
+  };
+  type textReplacer = {
+    to: string,
+    from: string
   }
-  selectPort(props.lineType, port);
-  isOpened.value = false;
-  if (useRoute().path !== '/') {
-    navigateTo({
-      path: `/search/`,
-    })
-    await sendPorts().then((res) => {
-      setListCards(res.cards)
-      useRouter().replace({ path: "/search/" + res.id });
-    })
-  }
-};
-type textReplacer = {
-  to: string,
-  from: string
-}
 
-const [to, from] = TO_FROM
-const texts: { [key: string]: textReplacer; } = {
-  title: { to, from },
-  select: {
-    to: 'Выбрать аэропорт прилета',
-    from: 'Выбрать аэропорт вылета'
-  },
-}
+  const [to, from] = TO_FROM
+  const texts: { [key: string]: textReplacer; } = {
+    title: { to, from },
+    select: {
+      to: 'Выбрать аэропорт прилета',
+      from: 'Выбрать аэропорт вылета'
+    },
+  }
 
 </script>
 

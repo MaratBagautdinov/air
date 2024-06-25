@@ -158,3 +158,18 @@ export const getSimularCardId = (card: I_CardsFull, cardsList: T_Card[]): I_Card
 export const formatPrice = (price: T_Price, currencyFilter: T_Currency) => {
     return priceFormat(price[getLoverCurrency(currencyFilter)], currencyFilter)
 };
+
+export const sumRoutesPrices = (routes: T_Card['routes']): T_Price => {
+    return routes.reduce((acc, cur) => {
+        if (cur === null) return acc;
+        return {
+            rub: acc.rub + cur.price.rub,
+            eur: acc.eur + cur.price.eur,
+            usd: acc.usd + cur.price.usd,
+        }
+    }, {
+        rub: 0,
+        eur: 0,
+        usd: 0
+    })
+}

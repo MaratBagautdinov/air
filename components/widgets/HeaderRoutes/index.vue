@@ -1,5 +1,5 @@
 <template>
-  <template v-if="pendingHeaderRoutes || !cardFull">
+  <template v-if="pendingHeaderRoutes">
     <div class="w-full py-[40px]">
       <ul class="flex items-center gap-[30px]">
         <li class="w-[260px] shimmer h-[70px]"></li>
@@ -21,47 +21,15 @@
         class="l-header-routes-swiper"
       >
         <SwiperSlide
-          v-for="(route, i) in listCards"
+          v-for="(card, i) in listCards"
           :key="i"
-          :class="`max-w-[300px]  p-3 ${nowCardID === route.id ? 'selected-card' : ''} `"
+          :class="`max-w-[300px] card-item p-3 ${nowCardID === card.id ? 'selected-card' : ''} `"
         >
           <NuxtLink
-            @click.prevent="setDetailRoutesID(route.id)"
-            :to="{ path: `/flight/${route.id}` }"
+            @click.prevent="emit('update:setDetailRoutesID', card.id)"
+            :to="{ path: `/flight/${card.id}` }"
           >
-            <template
-              v-for="(plane, i) in route.routes"
-              :key="i"
-            >
-              <div v-if="plane">
-                <div class="flex items-center gap-[10px]">
-                  <nuxt-img
-                    v-if="plane?.aircraft_picture_urls?.salon"
-                    :src="useApiNajet() + plane?.aircraft_picture_urls?.salon"
-                    placeholder
-                    alt="aircraft-img"
-                    class="aspect-square w-full h-full max-w-[70px]"
-                  />
-                  <div class="flex flex-col">
-                    <span class="block"> {{ plane?.aircraft_type }}</span>
-                    <span class="block text-[12px] text-gray">
-                      {{ plane?.aircraft_class }}
-                    </span>
-                    <div class="flex items-center gap-[20px] mt-[7px]">
-                      <span class="text-[14px]">{{
-                        priceFormat(plane?.price[getLoverCurrency(currencyFilter)], currencyFilter) }}</span>
-                      <span class="text-[14p] text-gray">
-                        {{ plane?.aircraft_year_of_creation }}
-                      </span>
-                      <span class="text-[14p] text-gray">
-                        {{ plane?.max_pax }}
-                        {{ getWordEnd(plane?.max_pax, ["мест", "место", "места"]) }}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </template>
+            <EntitiesCardRoutesMin :routes="card.routes" />
           </NuxtLink>
         </SwiperSlide>
       </Swiper>
@@ -69,26 +37,32 @@
   </template>
 </template>
 
-<script lang="ts" setup>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import type { I_CardsFull } from '~/types';
+<script
+  lang="ts"
+  setup
+>
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import type { I_CardsFull } from '~/types';
 
-const { currencyFilter, listCards } = storeToRefs(useStore());
-const pendingHeaderRoutes = computed(() => {
-  return !listCards.value.length;
-})
-const props = defineProps<{
-  setDetailRoutesID: (cardID: string) => void
-  cardFull: I_CardsFull | null
-}>();
-const nowCardID = computed(() => {
-  return props.cardFull ? getSimularCardId(props.cardFull, listCards.value) : '0';
-})
+  const { listCards } = storeToRefs(useStore());
+  const pendingHeaderRoutes = computed(() => {
+    console.log(!listCards.value.length, !props.cardFull);
+    return !listCards.value.length;
+  })
+
+  const emit = defineEmits(['update:setDetailRoutesID'])
+  const props = defineProps<{
+    cardFull: I_CardsFull | null
+  }>();
+  const nowCardID = computed(() => {
+    return props.cardFull ? getSimularCardId(props.cardFull, listCards.value) : '0';
+  })
 </script>
 
 <style>
-.selected-card {
-  background: #ebebeb;
-  color: #000;
-}
+  .card-item.selected-card {
+    background: #252525;
+    border-radius: 8px;
+  }
+
 </style>

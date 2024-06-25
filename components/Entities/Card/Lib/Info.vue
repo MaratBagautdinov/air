@@ -3,7 +3,7 @@
   setup
 >
   import type { RoutesEntity } from "~/types";
-
+  const { fromPort } = storeToRefs(useStore());
   const props = defineProps<{
     aircraft_type: RoutesEntity['aircraft_type'],
     aircraft_class: RoutesEntity['aircraft_class'],
@@ -11,6 +11,10 @@
   }>()
   const windowWidth = useState<number>('winWidth')
   const legsEmpty = computed(() => props.legs?.filter((l) => !l.is_emptyleg))
+  const isSelectedPort = computed(() => {
+    console.log(props.legs[0], fromPort.value?.icao);
+    return (legsEmpty.value[0].departure_airport === fromPort.value?.icao)
+  })
 </script>
 
 <template>
@@ -23,7 +27,10 @@
         {{ aircraft_class }}
       </span>
     </div>
-
+    <div
+      class="bg-orange text-black flex align-middle rounded-md text-center justify-center p-[3px] text-[13px]"
+      v-if="!isSelectedPort"
+    >Другой аэропорт</div>
     <div
       class="flex gap-4 flex-col"
       v-if="windowWidth > 640"

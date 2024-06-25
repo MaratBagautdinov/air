@@ -1,63 +1,62 @@
-<script setup lang="ts">
-import type { I_CardsFull } from "~/types";
-const { listCards, passengerCount, fromPort, toPort, datePort, dateBack, currencyFilter, isBackLine } = storeToRefs(useStore());
-const { sendPorts, setDatePort, setDateBack, setListCards } = useStore();
-const props = defineProps<{
-  cardId: string
-  setDetailRoutesID: (id: string) => void
-}>();
-const model = defineModel<I_CardsFull | null>()
-const {
-  data,
-  pending,
-  error,
-} = useFetch<I_CardsFull>(useApiCora() + `cards/${props.cardId}`, {
-  lazy: true,
-  key: "get-detail",
-  onResponse: async ({ response }) => {
-    const res = response._data
-    model.value = res
+<script
+  setup
+  lang="ts"
+>
+  import type { I_CardsFull } from "~/types";
+  const { listCards, passengerCount, fromPort, toPort, datePort, dateBack, currencyFilter, isBackLine } = storeToRefs(useStore());
+  const { sendPorts, setDatePort, setDateBack, setListCards } = useStore();
+  const props = defineProps<{
+    cardId: string
+  }>();
+  const emits = defineEmits(['update:setDetailRoutesID', 'update:setCardFull'])
+  const {
+    data,
+    pending,
+    error,
+  } = useFetch<I_CardsFull>(useApiCora() + `cards/${props.cardId}`, {
+    lazy: true,
+    key: "get-detail",
+    onResponse: async ({ response }) => {
+      const res = response._data
+      emits('update:setCardFull', res)
 
-    console.log(response._data, model.value);
-    passengerCount.value = res.query.pax_there;
+      passengerCount.value = res.query.pax_there;
 
-    fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
-    toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
+      fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
+      toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
 
-    setDatePort(setDate(new Date(res.query.departure_date_there)));
-    datePort.value.time = useFormatTime(res.query.departure_date_there);
-    if (res.query.departure_date_back) {
-      setDateBack(setDate(new Date(res.query.departure_date_back)));
-      dateBack.value.time = useFormatTime(res.query.departure_date_back);
+      setDatePort(setDate(new Date(res.query.departure_date_there)));
+      datePort.value.time = useFormatTime(res.query.departure_date_there);
+      if (res.query.departure_date_back) {
+        isBackLine.value = true
+        setDateBack(setDate(new Date(res.query.departure_date_back)));
+        dateBack.value.time = useFormatTime(res.query.departure_date_back);
+      }
+      await sendPorts().then((res) => {
+        setListCards(res.cards);
+      });
+    },
+  });
+  const finalPrice = computed(() => {
+    const merge_price = data.value?.routes?.reduce((prevVal, route) => {
+      if (!route) return prevVal;
+      return prevVal + route?.price[getLoverCurrency(currencyFilter.value)]
+    }, 0)
+    return priceFormat(Number(merge_price), currencyFilter.value);
+  });
+
+  watch([isBackLine], async () => {
+    if (data.value) {
+      const res = await sendPorts();
+      const newCardID = getSimularCardId(data.value, res.cards)
+      if (!newCardID) return null
+      emits('update:setDetailRoutesID', newCardID)
+      useRouter().replace(`/flight/${newCardID}`)
     }
-    await sendPorts().then((res) => {
-      setListCards(res.cards);
-    });
-  },
-});
-const finalPrice = computed(() => {
-  const merge_price = data.value?.routes?.reduce((prevVal, route) => {
-    if (!route) return prevVal;
-    return prevVal + route?.price[getLoverCurrency(currencyFilter.value)]
-  }, 0)
-  return priceFormat(Number(merge_price), currencyFilter.value);
-});
+  })
+  const isOpenSidebar = ref<boolean>(false);
 
-watch([isBackLine], async () => {
-  model.value = null
-  if (data.value) {
-    const res = await sendPorts();
-    const newCardID = getSimularCardId(data.value, res.cards)
-    if (!newCardID) return null
-    console.log(newCardID);
-
-    props.setDetailRoutesID(newCardID)
-    useRouter().replace(`/flight/${newCardID}`)
-  }
-})
-const isOpenSidebar = ref<boolean>(false);
-
-const route = useRoute();
+  const route = useRoute();
 </script>
 
 <template>
@@ -116,11 +115,11 @@ const route = useRoute();
 </template>
 
 <style scoped>
-.checkbox {
-  background-color: transparent;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #787878;
-  accent-color: transparent;
-}
+  .checkbox {
+    background-color: transparent;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #787878;
+    accent-color: transparent;
+  }
 </style>

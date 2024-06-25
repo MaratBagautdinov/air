@@ -60,7 +60,7 @@ export interface T_CardError {
     id: string;
 }
 export type T_PortType = "to" | "from"
-export type T_sortBy = "year" | "seats" | "priceDesc" | "priceAsc" 
+export type T_sortBy = "year" | "seats" | "priceDesc" | "priceAsc"
 export interface T_Card {
     id: string;
     routes: [RoutesEntity, RoutesEntity | null];
@@ -93,7 +93,7 @@ export interface RoutesEntity {
     operator_email: string;
     max_pax: number;
     price: T_Price;
-    legs?: (LegsEntity)[];
+    legs: (LegsEntity)[];
     start_date: string;
     end_date: string;
     crew?: ({})[] | null;

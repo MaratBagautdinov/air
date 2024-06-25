@@ -1,49 +1,45 @@
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+>
 
-import { TO_FROM } from "~/content";
+  import { TO_FROM } from "~/content";
 
-const props = defineProps<{
-  salonPhoto: string,
-  planeRoute: 'to' | 'from' | 'both' | 'none'
-}>();
-const [to, from] = TO_FROM
-const planeRouteLabelList = {
-  'none': [],
-  'to': [to],
-  'from': [from],
-  'both': [to, from]
-}[props.planeRoute]
+  const props = defineProps<{
+    salonPhoto: string,
+    planeRoute: 'to' | 'from' | 'both' | 'none'
+    maxW: string
+  }>();
+  const [to, from] = TO_FROM
+  const planeRouteLabelList = {
+    'none': [],
+    'to': [to],
+    'from': [from],
+    'both': [to, from]
+  }[props.planeRoute]
 
-let photoClass = computed(() => {
-  return useState<number>("winWidth").value > 640
-    ? "w-[220px] h-[220px]"
-    : "w-full h-full max-w-[100px] block"
-})
-let labelClass = computed(() => {
-  return useState<number>("winWidth").value > 640
-    ? "left-[10px] top-[10px] text-center w-[85px] text-[14px]"
-    : "absolute left-[4px] top-[4px] text-center w-[65px] text-[12px]"
-})
+  let photoClass = computed(() => {
+    return useState<number>("winWidth").value > 640
+      ? `w-[${props.maxW}px] h-[${props.maxW}px]`
+      : "w-full h-full max-w-[100px] block"
+  })
+  let labelClass = computed(() => {
+    return useState<number>("winWidth").value > 640
+      ? "left-[10px] top-[10px] text-center w-[85px] text-[14px]"
+      : "absolute left-[4px] top-[4px] text-center w-[65px] text-[12px]"
+  })
 </script>
 
 <template>
-  <div class="relative block min-w-fit photo-card-wrap overvlow-hidden">
+  <div :class="`relative block max-w-[${maxW}px] min-w-fit photo-card-wrap `">
     <nuxt-img
       :src="useApiNajet() + salonPhoto"
       placeholder
       alt="aircraft-img"
-      :class="`photo-card aspect-square ${photoClass}`"
+      :class="`photo-card aspect-square overflow-hidden ${photoClass}`"
     />
-    <!-- <span :class="`absolute flex flex-col gap-1 ${labelClass}`">
-      <div
-        class="lineType-item bg-[#121212] py-[7px]"
-        v-for="label in planeRouteLabelList"
-      >
-        {{ label }}
-      </div>
-    </span> -->
-    <img
-      src="/img/card-arrow.svg"
+    <nuxt-icon
+      name="card-arrow"
       alt="card-arrow"
       :class="`photo-card-arrow photo-card-arrow--${planeRoute}`"
     />
@@ -51,28 +47,41 @@ let labelClass = computed(() => {
 </template>
 
 <style lang="scss">
-.photo-card {
-  width: fit-content;
-}
-
-.photo-card-arrow {
-  position: absolute;
-  height: 100%;
-  width: auto;
-  display: block;
-  top: 0;
-
-  &--to {
-    right: -2px;
+  .photo-card {
+    width: fit-content;
+    border-radius: 9.5%;
   }
 
-  &--from {
-    left: -2px;
-    transform: scale(-1, -1);
+
+  .photo-card-arrow {
+    position: absolute;
+    height: 100%;
+    width: fit-content;
+    display: block;
+    top: 0;
+
+    svg {
+      height: 100%;
+      width: auto;
+    }
+
+    &--from {
+      right: -1px;
+    }
+
+    &--to {
+      left: -1px;
+      transform: scale(-1, -1);
+    }
+
+    &--none {
+      display: none;
+    }
+
   }
 
-  &--none {
-    display: none;
+  .nuxt-icon.nuxt-icon--fill,
+  .nuxt-icon.nuxt-icon--fill * {
+    fill: auto !important;
   }
-}
 </style>

@@ -55,7 +55,7 @@
           {{ finalPrice }}</span>
         <div class="flex gap-10 align-middle justify-center">
           <div class="social-links-wrap flex items-center gap-5">
-            <span>Поделться: </span>
+            <span>Поделиться: </span>
             <div class="social-links-list flex gap-5">
               <NuxtLink
                 target="_blank"

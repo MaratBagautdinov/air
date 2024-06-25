@@ -1,16 +1,16 @@
-<script setup lang="ts">
-import type { I_CardsFull } from '~/types';
+<script
+  setup
+  lang="ts"
+>
+  import type { I_CardsFull } from '~/types';
 
-const { setListCards } = useStore();
-const route = useRoute();
-const detailRoutesID = ref<string | string[]>(route.params.slug);
-useHead({
-  title: "Информация о рейсе",
-});
-const setDetailRoutesID = (cardID: string) => {
-  detailRoutesID.value = cardID
-}
-const cardFull = ref<I_CardsFull | null>(null)
+  const { setListCards } = useStore();
+  const route = useRoute();
+  const detailRoutesID = ref<string | string[]>(route.params.slug);
+  useHead({
+    title: "Информация о рейсе",
+  });
+  const cardFull = ref<I_CardsFull | null>(null)
 </script>
 
 <template>
@@ -19,13 +19,13 @@ const cardFull = ref<I_CardsFull | null>(null)
       <search-header />
       <WidgetsHeaderRoutes
         :cardFull
-        :setDetailRoutesID
+        @update:setDetailRoutesID="$event => detailRoutesID = $event"
       />
       <NuxtPage
         v-if="detailRoutesID"
         :cardId="detailRoutesID"
-        :setDetailRoutesID
-        v-model="cardFull"
+        @update:setCardFull="$event => cardFull = $event"
+        @update:setDetailRoutesID="$event => detailRoutesID = $event"
       />
     </section>
   </div>

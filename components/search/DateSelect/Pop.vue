@@ -18,12 +18,12 @@
   <transition name="slide-up">
     <div
       v-if="isOpened && dateFull"
-      class="p-5 absolute top-[-1px] left-[-1px] z-50 w-[760px] border border-white h-[399px] bg-dark max-[754px]:h-auto max-[754px]:w-full"
+      class="p-5 absolute top-[-1px] left-[-1px] z-50 w-[770px] border border-white h-[399px] bg-dark max-[754px]:h-auto max-[754px]:w-full"
     >
       <div>
         <div>
           <span class="">Дата вылета</span>
-          <ul class="relative flex items-center gap-[18px] mt-3">
+          <ul class="relative flex gap-[18px] mt-3">
             <li
               v-for="(date, i) in dates"
               :key="date.date"

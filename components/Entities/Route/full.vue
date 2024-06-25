@@ -2,7 +2,10 @@
   <div v-if="route">
     <div class="mt-[40px] flex items-center justify-between">
       <div class="flex items-center gap-3 max-[520px]:flex-col max-[520px]:gap-1">
-        <span class="route-type">{{ TO_FROM[lineType] }}</span>
+        <span
+          v-if="isBackLine"
+          class="route-type"
+        >{{ TO_FROM[lineType] }}</span>
         <div class="flex items-center gap-10 max-[520px]:flex-col max-[520px]:gap-1 ">
           <h1 class="text-34 max-[460px]:text-22 h-fit">{{ route?.aircraft_type }}</h1>
           <span class="text-34 max-[460px]:text-22">{{ formatDateFromIso(route?.departure_date) }}</span>
@@ -36,7 +39,7 @@
 
         <ul class="grid grid-cols-2 gap-5 mt-7">
           <li class="flex flex-col">
-            <span class="text-30">{{ route?.characteristics?.flying_range }}км</span>
+            <span class="text-30">{{ route?.characteristics?.flying_range }} км</span>
             <span class="text-gray text-14">Дальность полёта</span>
           </li>
           <li class="flex flex-col">
@@ -44,12 +47,12 @@
             <span class="text-gray text-14">Крейсерская скорость</span>
           </li>
           <li class="flex flex-col">
-            <span class="text-30">{{ route?.max_pax }}</span>
+            <span class="text-30">{{ route?.max_pax }} мест</span>
             <span class="text-gray text-14">Вместимость салона</span>
           </li>
           <li class="flex flex-col">
             <span class="text-30">{{ route?.aircraft_year_of_creation }}</span>
-            <span class="text-gray text-14">Год выпуска</span>
+            <span class="text-gray text-14"> Год выпуска самолета</span>
           </li>
         </ul>
 
@@ -121,12 +124,12 @@
             <span class="text-gray text-12">Крейсерская скорость</span>
           </li>
           <li class="flex flex-col">
-            <span class="text-20">{{ route?.max_pax }}</span>
+            <span class="text-20">{{ route?.max_pax }} мест</span>
             <span class="text-gray text-12">Вместимость салона</span>
           </li>
           <li class="flex flex-col">
             <span class="text-20">{{ route?.aircraft_year_of_creation }}</span>
-            <span class="text-gray text-12">Год выпуска</span>
+            <span class="text-gray text-12">Год выпуска самолета</span>
           </li>
         </ul>
 
@@ -194,6 +197,7 @@
     datetime_local: I_CardsFull['datetime_local']
     lineType: number
   }>()
+  const { isBackLine } = storeToRefs(useStore());
   const gallery = await useFetch<T_FlightImages>(
 
     useApiNajet() + "/api/images/" + props.route.aircraft,
@@ -221,8 +225,7 @@
 
 <style>
   .route-type {
-    background: rgba(255, 255, 255, 0.7);
-    color: #000000;
+    background: rgba(255, 255, 255, 0.1);
     padding: 5px 10px;
     border-radius: 8px;
   }
