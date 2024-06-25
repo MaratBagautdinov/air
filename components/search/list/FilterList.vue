@@ -57,7 +57,7 @@
       @click="isOpened = true"
       :class="`flex items-center gap-2 cursor-pointer`"
     >
-      <span class=""> Фильтры</span>
+      <span> Фильтры</span>
       <Icon
         name="Filter"
         size="30"

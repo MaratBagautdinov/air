@@ -5,13 +5,15 @@
   import type { T_Card } from '~/types';
 
   const { isBackLine, passengerCount, fromPort, toPort, datePort, dateBack, listCardsFilterd, getPortsState } = storeToRefs(useStore());
-  const { setListCards, setDateBack, setDatePort } = useStore();
+  const { setListCards, setDateBack, setDatePort, sendPorts } = useStore();
   const routesViewType = ref('sep')
 
   const route = useRoute()
   const { refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
+    key: Date.now().toString(),
     onResponse: ({ response }) => {
       const res = response._data
+      console.log(route.params.slug, res);
       if (!res.cards) return
       setListCards(res.cards);
       passengerCount.value = res.query.pax_there;
@@ -22,13 +24,11 @@
       setDatePort(setDate(new Date(res.query.departure_date_there)))
       datePort.value.time = useFormatTime(res.query.departure_date_there);
       if (res.query.departure_date_back) {
-        isBackLine.value = true
         setDateBack(setDate(new Date(res.query.departure_date_back)))
         dateBack.value.time = useFormatTime(res.query.departure_date_back);
       }
     },
   });
-  const windowWidth = useState<number>("winWidth");
 </script>
 
 <template>

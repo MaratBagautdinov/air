@@ -6,15 +6,17 @@
   const { setListCards, sendPorts } = useStore();
 
   const windowWidth = useState<number>("winWidth");
+  const route = useRoute()
 
-  const handleSearch = () => {
+  const handleSearchBack = () => {
+    console.log('handleSearchBack');
+    console.log(isBackLine.value);
     sendPorts().then((res) => {
+      console.log(res.id, isBackLine.value);
       setListCards(res.cards)
       useRouter().replace(`/search/${res.id}`)
     })
   }
-  const route = useRoute()
-  watch([isBackLine], handleSearch)
 </script>
 
 <template>
@@ -50,7 +52,7 @@
 
           <search-list-filter-list />
 
-          <search-list-back-btn v-if="windowWidth >= 640" />
+          <search-list-back-btn @handleSearchBack="handleSearchBack" />
         </div>
       </div>
 

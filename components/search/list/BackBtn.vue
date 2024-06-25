@@ -1,6 +1,7 @@
 <script setup>
-    const { datePort, getPortsState, isBackLine } = storeToRefs(useStore());
-    const { setDateBack } = useStore();
+    const { getPortsState, isBackLine } = storeToRefs(useStore());
+
+    const emit = defineEmits(['handleSearchBack'])
 
 </script>
 
@@ -16,6 +17,7 @@
                 class="checkbox"
                 id="check"
                 type="checkbox"
+                @change="emit('handleSearchBack')"
             />
             <span class="flex">Обратный рейс</span>
         </label>
