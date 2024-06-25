@@ -4,12 +4,12 @@
 >
   import type { T_Card } from '~/types';
 
-  const { isBackLine, passengerCount, fromPort, toPort, datePort, dateBack, listCardsFilterd } = storeToRefs(useStore());
+  const { isBackLine, passengerCount, fromPort, toPort, datePort, dateBack, listCardsFilterd, getPortsState } = storeToRefs(useStore());
   const { setListCards, setDateBack, setDatePort } = useStore();
   const routesViewType = ref('sep')
 
   const route = useRoute()
-  const { pending, refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
+  const { refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
     onResponse: ({ response }) => {
       const res = response._data
       if (!res.cards) return
@@ -28,24 +28,16 @@
       }
     },
   });
+  const windowWidth = useState<number>("winWidth");
 </script>
 
 <template>
   <template v-if="listCardsFilterd && listCardsFilterd.length > 0">
-    <template v-if="routesViewType === 'sep'">
-      <EntitiesCardRoutesSeparate
-        v-for="card in listCardsFilterd"
-        :key="card.id"
-        :card
-      />
-    </template>
-    <template v-if="routesViewType === 'merge'">
-      <EntitiesCardRoutesMerge
-        v-for="card in listCardsFilterd"
-        :key="card.id"
-        :card
-      />
-    </template>
+    <EntitiesCardRoutesSeparate
+      v-for="card in listCardsFilterd"
+      :key="card.id"
+      :card
+    />
   </template>
 
   <div

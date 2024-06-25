@@ -26,7 +26,7 @@
 <template>
   <li
     :key="card.id"
-    class="last:pb-0 last:border-b-0 pb-[40px] border-b border-white max-[640px]:border-b-0 max-[640px]:pb-[14px] "
+    class="last:pb-0 last:border-b-0 pb-[40px] border-b border-white max-[640px]:border-b-0 max-[640px]:pb-[14px] cards-item"
   >
     <nuxt-link
       :to="{ path: `/flight/${card.id}` }"
@@ -63,7 +63,11 @@
   </li>
 </template>
 <style scoped>
-  .card-item-lib-photo {
-    background: #121212;
+
+  .cards-item {
+    transform: skew(-3.5deg);
+    background: #0e0e0e;
+    border-radius: 15px;
+    padding: 25px 35px;
   }
 </style>

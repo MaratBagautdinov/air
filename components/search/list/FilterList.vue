@@ -4,7 +4,7 @@
 >
   import type { T_sortBy } from '~/types';
 
-  const { sortBy, currencyFilter, aircraftTypeFilter, listCards, listCardsFilterd } = storeToRefs(useStore());
+  const { sortBy, currencyFilter, aircraftTypeFilter, listCards, listCardsFilterd, getPortsState } = storeToRefs(useStore());
   const { setCurrency, setListCardsFilterd } = useStore();
 
   const isOpened = ref(false);
@@ -35,13 +35,27 @@
     return types
   })
   watch([sortBy, aircraftTypeFilter], setListCardsFilterd)
+  const route = useRoute()
 </script>
 
 <template>
-  <div class="">
+  <div
+    v-if="getPortsState.pending || route.params.slug === '2'"
+    class="shimmer"
+  >
+    <div :class="`flex items-center gap-2 cursor-pointer`">
+      <span> Фильтры</span>
+      <Icon
+        name="Filter"
+        size="30"
+        class=""
+      />
+    </div>
+  </div>
+  <div v-else>
     <button
       @click="isOpened = true"
-      class="flex items-center gap-2 cursor-pointer"
+      :class="`flex items-center gap-2 cursor-pointer`"
     >
       <span class=""> Фильтры</span>
       <Icon

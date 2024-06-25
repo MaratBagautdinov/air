@@ -1,42 +1,35 @@
 <script setup>
 
-const { sendPorts, setListCards } = useStore();
-const { passengerCount, listCards } = storeToRefs(useStore());
+    const { sendPorts, setListCards } = useStore();
+    const { passengerCount, listCards } = storeToRefs(useStore());
 
-const increment = () => {
-    passengerCount.value += 1;
-    debounceSearch()
-};
-
-const decrement = () => {
-    if (passengerCount.value > 1) {
-        passengerCount.value -= 1;
+    const increment = () => {
+        passengerCount.value += 1;
         debounceSearch()
-    }
-};
+    };
 
-const router = useRouter();
-const debounceTimeout = ref(0)
-const debounceSearch = () => {
-    console.log(passengerCount);
-    if (debounceTimeout.value) clearTimeout(debounceTimeout.value);
-    debounceTimeout.value = setTimeout(async () => {
-        navigateTo({
-            path: `/search/`,
-        })
-        await sendPorts().then((res) => {
-            if (res.error) {
-                alert(res.error.text)
-                return
-            } else {
+    const decrement = () => {
+        if (passengerCount.value > 1) {
+            passengerCount.value -= 1;
+            debounceSearch()
+        }
+    };
+
+    const router = useRouter();
+    const debounceTimeout = ref(0)
+    const debounceSearch = () => {
+        console.log(passengerCount);
+        if (debounceTimeout.value) clearTimeout(debounceTimeout.value);
+        debounceTimeout.value = setTimeout(async () => {
+            await sendPorts().then((res) => {
                 useRouter().replace(`/search/${res.id}`)
-            }
-        })
-    }, 3000);
-}
+            })
+        }, 3000);
+    }
 </script>
 
 <template>
+
     <div class="flex items-center">
         <div class="flex items-center gap-2">
             <div class="">

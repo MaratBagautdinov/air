@@ -38,9 +38,6 @@
     props.onSelectTime(dateFull.value.time);
     isOpened.value = false
     if (useRoute().fullPath.includes('search')) {
-      navigateTo({
-        path: `/search/`,
-      })
       await sendPorts().then((res) => {
         setListCards(res.cards)
         useRouter().replace({ path: "/search/" + res.id });

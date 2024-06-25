@@ -155,6 +155,7 @@ export const useStore = defineStore("searchFly", {
             const formattedDate = formatDateToISO(this.datePort.date.date, this.datePort.time);
             const formattedDateBack = this.dateBack ? formatDateToISO(this.dateBack.date.date, this.dateBack.time) : '';
             try {
+                if (!this.fromPort || !this.toPort) { return Promise.reject("Не выбраны порты") }
                 const res = await $fetch<I_CardsAPI>(useApiCora() + "cards", {
                     method: "GET",
                     query: {

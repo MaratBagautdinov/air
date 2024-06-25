@@ -53,9 +53,6 @@
       selectPort(props.lineType, portNew);
       isOpened.value = false;
       if (useRoute().path !== '/') {
-        navigateTo({
-          path: `/search/`,
-        })
         await sendPorts().then((res) => {
           setListCards(res.cards)
           useRouter().replace({ path: "/search/" + res.id });
@@ -137,7 +134,7 @@
             </div>
           </div>
           <div
-            class="overflow-hidden max-h-[90vh] pb-5 h-full w-full"
+            class="overflow-hidden h-[90vh] pb-5 w-full"
             v-if="filteredFromList && filteredFromList.length > 0"
           >
             <ul class="grid grid-cols-3 gap-[32px_8px] max-[640px]:grid-cols-2  overflow-y-scroll h-full ">

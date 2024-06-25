@@ -53,6 +53,9 @@
     border-radius: 9.5%;
   }
 
+  .card-item-lib-photo {
+    transform: skew(-1.5deg);
+  }
 
   .photo-card-arrow {
     position: absolute;

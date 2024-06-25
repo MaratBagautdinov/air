@@ -24,16 +24,10 @@
     const { datePort } = storeToRefs(useStore());
     const handleSearch = async () => {
         navigateTo({
-            path: `/search/`,
+            path: `/search/2`,
         })
         await sendPorts().then((res) => {
-
-            if (res.error) {
-                alert(res.error.text)
-                return
-            } else {
-                useRouter().replace(`/search/${res.id}`)
-            }
+            useRouter().replace(`/search/${res.id}`)
         })
     };
 
