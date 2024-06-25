@@ -48,7 +48,7 @@
           <EntitiesCardLibInfo
             :aircraft_class="plane.aircraft_class"
             :aircraft_type="plane.aircraft_type"
-            :legs="plane.legs"
+            :leg="plane.legs.find((l) => !l.is_emptyleg)"
             :planeRoute="(i === 0 ? 'to' : 'from')"
           />
           <EntitiesCardLibOffer

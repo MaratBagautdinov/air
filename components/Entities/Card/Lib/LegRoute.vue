@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <span class="text-orange">
+        <span :class="isOtherPort ? 'text-orange' : 'text-light'">
             {{
                 airport?.name_rus
             }}
@@ -21,7 +21,8 @@
 
     const props = defineProps<{
         date: string
-        airport_icao: string
+        airport_icao: string,
+        isOtherPort: boolean
     }>()
     const date = useFormatTime(props.date)
     const airport = useFindByIcao(props.airport_icao)

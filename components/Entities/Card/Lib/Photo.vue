@@ -4,6 +4,7 @@
 >
 
   import { TO_FROM } from "~/content";
+  const { isBackLine } = storeToRefs(useStore());
 
   const props = defineProps<{
     salonPhoto: string,
