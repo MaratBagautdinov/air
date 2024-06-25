@@ -56,7 +56,6 @@
           {{ listCardsFilterd.length }}
           {{ getWordEnd(listCardsFilterd.length, ["вариантов", "вариант", "варианта"]) }}
         </span>
-        <search-list-back-btn />
       </div>
 
       <search-header />
@@ -72,7 +71,7 @@
           {{ getWordEnd(listCardsFilterd.length, ["вариантов", "вариант", "варианта"]) }}
         </span>
 
-        <div class="flex items-center gap-[50px] max-[640px]:w-full max-[640px]:justify-between">
+        <div class="flex items-center gap-[50px] max-[640px]:w-full max-[640px]:justify-between head-bottom">
           <search-list-passenger-count />
 
           <search-list-filter-list />
@@ -87,4 +86,20 @@
   </div>
 </template>
 
-<style scoped></style>
+<style>
+
+  @media (max-width:920px) {
+    .head-bottom {
+      gap: 8px;
+      flex-direction: column;
+    }
+
+    .head-bottom>* {
+      border: 1px solid #424242;
+      width: 100%;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+  }
+</style>

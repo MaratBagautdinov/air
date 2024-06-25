@@ -44,7 +44,7 @@
           :maxW="'220'"
           class="card-item-lib-photo"
         />
-        <div :class="infoClass">
+        <div :class="`card-item-r ${infoClass}`">
           <EntitiesCardLibInfo
             :aircraft_class="plane.aircraft_class"
             :aircraft_type="plane.aircraft_type"
@@ -69,5 +69,12 @@
     background: #0e0e0e;
     border-radius: 15px;
     padding: 25px 35px;
+    width: 98%;
+  }
+
+  @media (max-width:920px) {
+    .cards-item {
+      padding: 15px;
+    }
   }
 </style>

@@ -21,7 +21,7 @@
     return useState<number>("winWidth").value > 640 ?
       "flex flex-col justify-between text-end"
       :
-      "flex h-full gap-[20px] justify-between"
+      "flex h-full gap-[20px] justify-between flex-row-reverse"
   })
   let fontClass = computed(() => {
     return useState<number>("winWidth").value > 640 ?
@@ -31,7 +31,7 @@
 
 <template>
   <div :class="offerClass">
-    <h3 :class="`text-${windowWidth > 640 ? 30 : 16} font-light uppercase`">{{ formatPrice(price) }}</h3>
+    <h3 :class="`text-${windowWidth > 640 ? 30 : 16} direct font-light uppercase`">{{ formatPrice(price) }}</h3>
     <div :class="`flex gap-4 align-bottom ${windowWidth > 1000 ? '' : 'flex-col-reverse'}`">
       <nuxt-img
         v-if="avatar && windowWidth > 640"

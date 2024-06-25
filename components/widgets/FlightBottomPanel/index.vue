@@ -53,7 +53,7 @@
           @click="setNextCurrencyFilter()"
         >
           {{ finalPrice }}</span>
-        <div class="flex gap-10 align-middle justify-center">
+        <div class="flex gap-10 align-middle justify-center pannel-botom">
           <div class="social-links-wrap flex items-center gap-5">
             <span>Поделиться: </span>
             <div class="social-links-list flex gap-5">
@@ -86,6 +86,13 @@
 
   .social-link-item img {
     color: #ffffff
+  }
+
+  @media (max-width:920px) {
+
+    .pannel-botom {
+      flex-direction: column;
+    }
   }
 
   a.social-link-item svg {
