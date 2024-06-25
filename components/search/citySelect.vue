@@ -123,7 +123,9 @@
               <span
                 class="close-btn cursor-pointer"
                 @click="isOpened = false"
-              >X</span>
+              >
+                <NuxtIcon name="close" />
+              </span>
             </div>
             <div class="mt-[10px]">
               <input
