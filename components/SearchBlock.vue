@@ -20,13 +20,14 @@
     setup
     lang="ts"
 >
-    const { sendPorts, setDatePort } = useStore();
+    const { sendPorts, setDatePort, setListCards } = useStore();
     const { datePort } = storeToRefs(useStore());
     const handleSearch = async () => {
         navigateTo({
             path: `/search/2`,
         })
         await sendPorts().then((res) => {
+            setListCards(res.cards)
             useRouter().replace(`/search/${res.id}`)
         })
     };
