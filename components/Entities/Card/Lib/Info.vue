@@ -13,31 +13,32 @@
   }>()
   const windowWidth = useState<number>('winWidth')
   const otherPorts = computed(() => {
-    let arr: string[] = []
-    if (!props.leg) return arr
+    if (!props.leg) return [];
 
-    switch (props.planeRoute) {
-      case 'to': {
-        if (props.leg.departure_airport !== fromPort.value.icao) {
-          arr.push(props.leg.departure_airport)
-        }
-        if ((props.leg.arrival_airport !== toPort.value?.icao)) {
-          arr.push(props.leg.arrival_airport)
-        }
-        break;
+    const arr = [];
+    const { departure_airport, arrival_airport } = props.leg;
+
+    if (props.planeRoute === 'to') {
+      if (departure_airport !== fromPort.value?.icao) {
+        arr.push(departure_airport);
       }
-      case 'from': {
-        if (props.leg.arrival_airport !== fromPort.value.icao) {
-          arr.push(props.leg.arrival_airport)
-        }
-        if ((props.leg.departure_airport !== toPort.value?.icao)) {
-          arr.push(props.leg.departure_airport)
-        }
-        break;
+
+      if (arrival_airport !== toPort.value?.icao) {
+        arr.push(arrival_airport);
       }
     }
-    return arr
-  })
+    else if (props.planeRoute === 'from') {
+      if (arrival_airport !== fromPort.value?.icao) {
+        arr.push(arrival_airport);
+      }
+
+      if (departure_airport !== toPort.value?.icao) {
+        arr.push(departure_airport);
+      }
+    }
+
+    return arr;
+  });
 </script>
 
 <template>
