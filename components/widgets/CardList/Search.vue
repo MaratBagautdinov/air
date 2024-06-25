@@ -9,26 +9,7 @@
   const routesViewType = ref('sep')
 
   const route = useRoute()
-  const { refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
-    key: Date.now().toString(),
-    onResponse: ({ response }) => {
-      const res = response._data
-      console.log(route.params.slug, res);
-      if (!res.cards) return
-      setListCards(res.cards);
-      passengerCount.value = res.query.pax_there;
 
-      fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
-      toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
-
-      setDatePort(setDate(new Date(res.query.departure_date_there)))
-      datePort.value.time = useFormatTime(res.query.departure_date_there);
-      if (res.query.departure_date_back) {
-        setDateBack(setDate(new Date(res.query.departure_date_back)))
-        dateBack.value.time = useFormatTime(res.query.departure_date_back);
-      }
-    },
-  });
 </script>
 
 <template>

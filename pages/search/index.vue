@@ -2,17 +2,42 @@
   setup
   lang="ts"
 >
-  const { isBackLine, getPortsState, errorText, listCardsFilterd, toPort, fromPort } = storeToRefs(useStore());
-  const { setListCards, sendPorts } = useStore();
+  const { isBackLine, getPortsState, passengerCount, datePort, dateBack, errorText, listCardsFilterd, toPort, fromPort } = storeToRefs(useStore());
+  const { setListCards, setDateBack, setDatePort, sendPorts } = useStore();
 
   const windowWidth = useState<number>("winWidth");
   const route = useRoute()
 
+  getPortsState.value.pending = true;
+  getPortsState.value.error.status = false;
+  getPortsState.value.error.msg = '';
+  const { data, refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
+    key: Date.now().toString(),
+    onResponse: ({ response }) => {
+      const res = response._data
+      getPortsState.value.pending = false;
+      if (res.error) {
+        getPortsState.value.error.status = true;
+        getPortsState.value.error.msg = res.error.text;
+      }
+      if (!res.cards) return
+      setListCards(res.cards);
+      passengerCount.value = res.query.pax_there;
+
+      fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
+      toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
+
+      setDatePort(setDate(new Date(res.query.departure_date_there)))
+      datePort.value.time = useFormatTime(res.query.departure_date_there);
+      if (res.query.departure_date_back) {
+        isBackLine.value = true
+        setDateBack(setDate(new Date(res.query.departure_date_back)))
+        dateBack.value.time = useFormatTime(res.query.departure_date_back);
+      }
+    },
+  });
   const handleSearchBack = () => {
-    console.log('handleSearchBack');
-    console.log(isBackLine.value);
     sendPorts().then((res) => {
-      console.log(res.id, isBackLine.value);
       setListCards(res.cards)
       useRouter().replace(`/search/${res.id}`)
     })

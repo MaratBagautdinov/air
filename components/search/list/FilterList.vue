@@ -41,7 +41,7 @@
 <template>
   <div
     v-if="getPortsState.pending || route.params.slug === '2'"
-    class="shimmer"
+    class="shimmer pr-2"
   >
     <div :class="`flex items-center gap-2 cursor-pointer`">
       <span> Фильтры</span>
