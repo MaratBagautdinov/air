@@ -4,7 +4,7 @@
 >
   import type { T_Date, T_SearchDate, T_TIME } from "~/types";
   const { sendPorts, setListCards } = useStore();
-  const { isBackLine } = storeToRefs(useStore());
+  const { isBackLine, needSearch } = storeToRefs(useStore());
 
 
   const props = defineProps<{
@@ -44,6 +44,11 @@
       })
     }
   }
+  watch(dateFull, () => {
+    needSearch.value = (dateFull.value.date.full.getDate() != props.date.date.full.getDate()) || (dateFull.value.time != props.date.time)
+  }, {
+    deep: true
+  })
 </script>
 
 <template>

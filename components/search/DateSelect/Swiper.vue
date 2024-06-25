@@ -64,7 +64,7 @@
     </vue-date-picker>
   </div>
   <div
-    class="border-b border-white py-[10px] px-2"
+    class="border-b border-white py-[10px] px-2 mb-6 w-[99vw]"
     v-if="dateFull"
   >
     <Swiper

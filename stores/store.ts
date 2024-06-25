@@ -25,6 +25,7 @@ interface I_STATE {
     sortBy: T_sortBy,
     aircraftTypeFilter: string,
     errorText: string
+    needSearch: boolean,
 }
 
 export const useStore = defineStore("searchFly", {
@@ -54,7 +55,8 @@ export const useStore = defineStore("searchFly", {
         currencyFilter: "RUB",
         sortBy: "priceAsc",
         aircraftTypeFilter: "",
-        errorText: ""
+        errorText: "",
+        needSearch: false,
     }),
     getters: {},
     actions: {
