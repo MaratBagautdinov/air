@@ -1,15 +1,8 @@
 import { defineStore } from "pinia";
-import type { T_Date, T_Card, T_Currency, T_Port, T_PortType, T_SearchDate, I_CardsAPI, T_sortBy } from "~/types";
+import type { T_Date, T_Card, T_Currency, T_Port, T_PortType, T_SearchDate, I_CardsAPI, T_sortBy, T_STATE_ENTITY } from "~/types";
 import { formatDateToISO, getNextDateFull } from "~/utils";
 
-type T_STATE_ENTITY<entity> = {
-    pending: boolean,
-    error: {
-        status: boolean,
-        msg: string,
-    },
-    entity: entity
-}
+
 
 interface I_STATE {
     getPortsState: T_STATE_ENTITY<[T_Port | null, T_Port | null]>,
@@ -78,17 +71,6 @@ export const useStore = defineStore("searchFly", {
         setListCards(list: T_Card[]) {
             this.listCards = list
             this.setListCardsFilterd()
-        },
-        handleSearch() {
-            this.sendPorts().then((res) => {
-                if (res.error) {
-                    alert(res.error.text);
-                    return;
-                }
-                else if (res && Number(res?.id) > 1) {
-                    this.setListCards(res.cards)
-                }
-            });
         },
         setDatePort(date: T_Date) {
             if (this.dateBack) {
@@ -171,11 +153,13 @@ export const useStore = defineStore("searchFly", {
                     },
                 });
                 if (res.error) {
-                    console.log(res);
-
                     this.getPortsState.error.status = true;
                     this.getPortsState.error.msg = res.error.text;
                     return res;
+                }
+                if (this.passengerCount > 8 && res.cards.length === 0) {
+                    this.getPortsState.error.status = true;
+                    this.getPortsState.error.msg = 'К сожалению, флот авиакомпании не имеет самолетов с требуемым количеством пассажирских мест. Вы можете обратиться к нам по адресу charter@weltall.ru или по телефону +7 (495) 129 29 04  и мы подберем Вам необходимый вариант.';
                 }
                 return res;
             } catch (error) {

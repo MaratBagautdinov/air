@@ -20,7 +20,6 @@
         getPortsState.value.error.status = true;
         getPortsState.value.error.msg = res.error.text;
       }
-      if (!res.cards) return
       setListCards(res.cards);
       passengerCount.value = res.query.pax_there;
 
@@ -36,7 +35,7 @@
       }
     },
   });
-  const handleSearchBack = () => {
+  const handleSearch = () => {
     sendPorts().then((res) => {
       setListCards(res.cards)
       useRouter().replace(`/search/${res.id}`)
@@ -62,18 +61,18 @@
           <div
             v-if="needSearch"
             class="search-btn"
-            @click="handleSearchBack"
+            @click="handleSearch"
           >
 
           </div>
         </span>
 
         <div class="flex items-center gap-[50px] max-[640px]:w-full max-[640px]:justify-between head-bottom">
-          <search-list-passenger-count />
+          <search-list-passenger-count @handleSearch="handleSearch"/>
 
           <search-list-filter-list />
 
-          <search-list-back-btn @handleSearchBack="handleSearchBack" />
+          <search-list-back-btn @handleSearchBack="handleSearch" />
         </div>
       </div>
 

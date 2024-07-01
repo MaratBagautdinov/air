@@ -6,12 +6,12 @@
   >
     <div
       data-v-c03a4a04=""
-      class="flex-col"
+      class="flex-col flex gap-[15px]"
       v-for="i in isBackLine ? [1, 2] : [1]"
     >
       <article
         data-v-c03a4a04=""
-        class="flex gap-[31px] justify-between first:pb-[30px]"
+        class="flex gap-[31px] justify-between"
       >
         <div
           data-v-c03a4a04=""

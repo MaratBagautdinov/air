@@ -1,7 +1,6 @@
 <script setup>
 
-    const { sendPorts, setListCards } = useStore();
-    const { passengerCount, listCards } = storeToRefs(useStore());
+    const { passengerCount } = storeToRefs(useStore());
 
     const increment = () => {
         passengerCount.value += 1;
@@ -15,15 +14,13 @@
         }
     };
 
+    const emit = defineEmits(['handleSearch'])
     const router = useRouter();
     const debounceTimeout = ref(0)
     const debounceSearch = () => {
-        console.log(passengerCount);
         if (debounceTimeout.value) clearTimeout(debounceTimeout.value);
         debounceTimeout.value = setTimeout(async () => {
-            await sendPorts().then((res) => {
-                useRouter().replace(`/search/${res.id}`)
-            })
+          emit('handleSearch')
         }, 3000);
     }
 </script>

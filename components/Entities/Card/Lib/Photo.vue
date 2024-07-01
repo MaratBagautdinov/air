@@ -24,20 +24,15 @@
       ? `w-[${props.maxW}px] h-[${props.maxW}px]`
       : "w-full h-full max-w-[100px] block"
   })
-  let labelClass = computed(() => {
-    return useState<number>("winWidth").value > 640
-      ? "left-[10px] top-[10px] text-center w-[85px] text-[14px]"
-      : "absolute left-[4px] top-[4px] text-center w-[65px] text-[12px]"
-  })
 </script>
 
 <template>
-  <div :class="`relative block max-w-[${maxW}px] min-w-fit photo-card-wrap `">
+  <div :class="`relative block photo-card-wrap`">
     <nuxt-img
       :src="useApiNajet() + salonPhoto"
       placeholder
       alt="aircraft-img"
-      :class="`photo-card aspect-square overflow-hidden ${photoClass}`"
+      :class="`photo-card aspect-square  ${photoClass}`"
     />
     <nuxt-icon
       name="card-arrow"
@@ -48,8 +43,15 @@
 </template>
 
 <style lang="scss">
+  .h-\[70px\] {
+    height: 70px;
+  }
+
+  .w-\[70px\] {
+    width: 70px;
+  }
+
   .photo-card {
-    width: fit-content;
     border-radius: 9.5%;
   }
 

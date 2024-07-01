@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <search-list-back-btn v-if="lineType === 0" />
+      <search-list-back-btn v-if="lineType === 0" @handleSearchBack="emit('handleSearchBack')" />
     </div>
 
     <div class="mt-[30px] flex w-full gap-[30px] max-[1321px]:gap-[20px] max-[1321px]:flex-col max-[460px]:mt-[20px]">
@@ -58,8 +58,8 @@
 
         <div class="mt-8 flex flex-col">
           <span class="">Предложение: №{{ route?.number }}</span>
-          <span class="text-14 text-gray leading-[16px]">
-            Информация является актуальной на {{ testFOrmat(datetime_local) }}. При
+          <span :class="`text-14 text-gray leading-[16px] ${!datetime_local ? 'shimmer' : ''}` ">
+            Информация является актуальной на {{ datetime_local ? testFOrmat(datetime_local) : '' }}. При
             необходимости свяжитесь с оператором по телефону: +7 (495) 129-29-04, назовите номер
             предложения для быстрой идентификации.
           </span>
@@ -82,7 +82,7 @@
 
       <div
         class="relative max-w-[750px] w-full max-[1321px]:max-w-full"
-        v-if="gallery.data.value?.gallery"
+        v-if="gallery?.gallery"
       >
         <Swiper
           :navigation="{
@@ -94,7 +94,7 @@
         >
           <SwiperSlide
             class=""
-            v-for="(img, i) in gallery.data.value?.gallery"
+            v-for="(img, i) in gallery?.gallery"
             :key="i"
           >
             <nuxt-img
@@ -135,8 +135,8 @@
 
         <div class="mt-8 flex flex-col">
           <span class="">Предложение: №{{ route?.number }}</span>
-          <span class="text-14 text-gray leading-[16px]">
-            Информация является актуальной на {{ testFOrmat(datetime_local) }}. При
+          <span :class="`text-14 text-gray leading-[16px] ${!datetime_local ? 'shimmer' : ''}` ">
+            Информация является актуальной на {{ datetime_local ? testFOrmat(datetime_local) : '' }}. При
             необходимости свяжитесь с оператором по телефону: +7 (495) 129-29-04, назовите номер
             предложения для быстрой идентификации.
           </span>
@@ -194,20 +194,21 @@
   import type { I_CardsFull, RoutesEntity, T_FlightImages } from '~/types';
   const props = defineProps<{
     route: RoutesEntity
-    datetime_local: I_CardsFull['datetime_local']
+    datetime_local: I_CardsFull['datetime_local'] | null | undefined
     lineType: number
   }>()
   const { isBackLine } = storeToRefs(useStore());
-  const gallery = await useFetch<T_FlightImages>(
+  console.log(props.route.aircraft);
+  const gallery = await $fetch<T_FlightImages>(
 
     useApiNajet() + "/api/images/" + props.route.aircraft,
     {
       headers: {
         Accept: "application/json"
       },
-      lazy: true
     }
   );
+    const emit = defineEmits(['handleSearchBack'])
   const testFOrmat = (isoDate: string) => {
     const date = new Date(isoDate);
 

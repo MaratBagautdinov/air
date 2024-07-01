@@ -142,7 +142,7 @@ export const formatDateToISO = (dateStr: string, timeStr: string) => {
     return `${dateStr}T${timeStr}:00.000Z`;
 }
 
-export const getSimularCardId = (card: I_CardsFull, cardsList: T_Card[]): I_CardsFull['id'] | undefined => {
+export const getSimilarCardId = (card: I_CardsFull | T_Card, cardsList: T_Card[]): I_CardsFull['id'] | undefined => {
     if (!card) return;
     const isCard = cardsList.find(c => {
         const r_1 = c.routes?.[0];

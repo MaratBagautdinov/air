@@ -1,12 +1,5 @@
 <template>
-  <template v-if="pendingHeaderRoutes">
-    <div class="w-full py-[40px]">
-      <ul class="flex items-center gap-[30px]">
-        <li class="w-[260px] shimmer h-[70px]"></li>
-        <li class="w-[260px] shimmer h-[70px]"></li>
-      </ul>
-    </div>
-  </template>
+  <WidgetsHeaderRoutesShimmer v-if="pendingHeaderRoutes || getPortsState.pending" />
   <template v-else>
     <div
       v-if="listCards && listCards.length > 0"
@@ -26,7 +19,7 @@
           :class="`max-w-[300px] card-item p-3 ${nowCardID === card.id ? 'selected-card' : ''} `"
         >
           <NuxtLink
-            @click.prevent="emit('update:setDetailRoutesID', card.id)"
+            @click.prevent="emit('setSimilarCard', card)"
             :to="{ path: `/flight/${card.id}` }"
           >
             <EntitiesCardRoutesMin :routes="card.routes" />
@@ -42,20 +35,20 @@
   setup
 >
   import { Swiper, SwiperSlide } from 'swiper/vue';
-  import type { I_CardsFull } from '~/types';
+  import type { I_CardsFull, T_Card } from '~/types';
+  import { getSimilarCardId } from "~/utils";
 
-  const { listCards } = storeToRefs(useStore());
+  const { listCards, getPortsState } = storeToRefs(useStore());
   const pendingHeaderRoutes = computed(() => {
-    console.log(!listCards.value.length, !props.cardFull);
     return !listCards.value.length;
   })
 
-  const emit = defineEmits(['update:setDetailRoutesID'])
+  const emit = defineEmits(['setSimilarCard'])
   const props = defineProps<{
-    cardFull: I_CardsFull | null
+    cardFull: I_CardsFull | T_Card | null
   }>();
   const nowCardID = computed(() => {
-    return props.cardFull ? getSimularCardId(props.cardFull, listCards.value) : '0';
+    return props.cardFull ? getSimilarCardId(props.cardFull, listCards.value) : '0';
   })
 </script>
 

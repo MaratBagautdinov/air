@@ -106,7 +106,14 @@ export interface RoutesEntity {
     pax: number;
     number: string;
 }
-
+export type T_STATE_ENTITY<entity> = {
+    pending: boolean,
+    error: {
+        status: boolean,
+        msg: string,
+    },
+    entity: entity
+}
 export interface AircraftPictureUrls {
     salon: string;
     avatar: string;
