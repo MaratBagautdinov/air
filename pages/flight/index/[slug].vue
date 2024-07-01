@@ -17,7 +17,7 @@
 
   const isOpenSidebar = ref<boolean>(false);
 
-    const emit = defineEmits(['handleSearchBack'])
+  const emit = defineEmits(['handleSearchBack'])
 </script>
 
 <template>

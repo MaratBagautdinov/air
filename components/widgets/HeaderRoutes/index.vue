@@ -1,5 +1,6 @@
 <template>
   <WidgetsHeaderRoutesShimmer v-if="pendingHeaderRoutes || getPortsState.pending" />
+  <div v-else-if="getPortsState.error.status"></div>
   <template v-else>
     <div
       v-if="listCards && listCards.length > 0"
