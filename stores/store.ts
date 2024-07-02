@@ -19,6 +19,7 @@ interface I_STATE {
     aircraftTypeFilter: string,
     errorText: string
     needSearch: boolean,
+    isFilterOpened: boolean,
 }
 
 export const useStore = defineStore("searchFly", {
@@ -50,6 +51,7 @@ export const useStore = defineStore("searchFly", {
         aircraftTypeFilter: "",
         errorText: "",
         needSearch: false,
+        isFilterOpened: true,
     }),
     getters: {},
     actions: {

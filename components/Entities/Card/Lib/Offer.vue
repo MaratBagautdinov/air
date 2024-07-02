@@ -5,7 +5,7 @@
 
   import type { AircraftPictureUrls, RoutesEntity, T_Price } from "~/types";
 
-  const { listCards, getPortsState, currencyFilter } = storeToRefs(useStore());
+  const { listCards, getPortsState, currencyFilter, isFilterOpened } = storeToRefs(useStore());
   const props = defineProps<{
     aircraft_year_of_creation: RoutesEntity['aircraft_year_of_creation'],
     price: T_Price | null,
@@ -34,7 +34,7 @@
     <h3 :class="`text-${windowWidth > 640 ? 30 : 16} direct font-light uppercase`">{{ formatPrice(price) }}</h3>
     <div :class="`flex gap-4 align-bottom ${windowWidth > 1000 ? '' : 'flex-col-reverse'}`">
       <nuxt-img
-        v-if="avatar && windowWidth > 640"
+        v-if="!isFilterOpened && avatar && windowWidth > 640"
         loading="lazy"
         alt="aircraft-img"
         class="w-[200px]"
