@@ -2,7 +2,7 @@
   <li
     v-if="winWidth > 800"
     data-v-c03a4a04=""
-    class="last:pb-0 last:border-b-0 pb-[40px] border-b border-white max-[640px]:border-b-0 max-[640px]:pb-[14px] cards-item"
+    class="flex flex-col gap-3 last:pb-0 last:border-b-0 pb-[40px] border-b border-white max-[640px]:border-b-0 max-[640px]:pb-[14px] cards-item"
   >
     <div
       data-v-c03a4a04=""

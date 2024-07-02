@@ -97,7 +97,7 @@ export const formatDate = (date: Date): string => {
     const month = months[date.getMonth()];
     return `${day} ${month}`;
 };
-export const getNextDateFull = (date: Date, daysPlus: number) => {
+export const getNextDateFull = (date: Date, daysPlus: number): Date => {
     date.setDate(date.getDate() + daysPlus);
     return date;
 };

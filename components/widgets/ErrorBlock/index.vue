@@ -7,6 +7,13 @@
         >
             Вернуться на главную страницу
         </NuxtLink>
+
+        <div
+            @click="handleSearch"
+            class="bg-white mt-2 text-22 text-dark p-[5px] px-5 rounded-[6px] cursor-pointer"
+        >
+            Повторить поиск
+        </div>
     </div>
 </template>
 
@@ -14,7 +21,16 @@
     lang="ts"
     setup
 >
-
+    const { sendPorts, setListCards } = useStore();
+    const handleSearch = async () => {
+        navigateTo({
+            path: `/search/2`,
+        })
+        await sendPorts().then((res) => {
+            setListCards(res.cards)
+            useRouter().replace(`/search/${res.id}`)
+        })
+    };
 </script>
 
 <style>

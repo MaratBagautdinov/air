@@ -86,7 +86,8 @@ export const useStore = defineStore("searchFly", {
             const from = (new Date(date.date))
             const to = (new Date(this.datePort.date.date))
             if (to > from) {
-                this.datePort.date = setDate(getNextDateFull(from, -1))
+
+                this.datePort.date = setDate(getNextDateFull(from, from > getNextDateFull(new Date(), 1) ? -1 : 0))
             }
             this.dateBack = { date, time: "12:00" }
         },

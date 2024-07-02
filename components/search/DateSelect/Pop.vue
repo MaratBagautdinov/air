@@ -9,6 +9,7 @@
     times: T_TIME[]
     isOpened: boolean
     submit: () => void
+    close: () => void
   }>()
   const dateFull = defineModel<T_SearchDate>()
   const customPosition = () => ({ top: -20, left: -280 });
@@ -78,10 +79,14 @@
           </ul>
         </div>
 
-        <div class="mt-4 flex items-center justify-center">
+        <div class="mt-4 flex items-center justify-center gap-2">
           <shared-btn
             @click="submit"
             text="применить"
+          />
+          <shared-btn
+            @click="close"
+            text="закрыть"
           />
         </div>
       </div>

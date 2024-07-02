@@ -4,7 +4,7 @@
 >
   import type { I_CardsFull, T_Card, T_STATE_ENTITY } from '~/types';
 
-  const { getPortsState, passengerCount, fromPort, toPort, datePort, dateBack, currencyFilter, isBackLine } = storeToRefs(useStore());
+  const { listCards, getPortsState, passengerCount, fromPort, toPort, datePort, dateBack, currencyFilter, isBackLine } = storeToRefs(useStore());
   const { sendPorts, setDatePort, setDateBack, setListCards } = useStore();
   const route = useRoute();
   const detailRoutesID = ref<string | string[]>(route.params.slug);
@@ -14,11 +14,11 @@
   useFetch<I_CardsFull>(useApiCora() + `cards/${route.params.slug}`, {
     lazy: true,
     key: "get-detail",
-    onRequest: ()=>{
+    onRequest: () => {
       cardFull.value = {
         entity: null,
         error: {
-          msg:'',
+          msg: '',
           status: false,
         },
         pending: true
@@ -29,7 +29,7 @@
       cardFull.value = {
         entity: res,
         error: {
-          msg:'',
+          msg: '',
           status: false,
         },
         pending: false
@@ -46,46 +46,58 @@
         setDateBack(setDate(new Date(res.query.departure_date_back)));
         dateBack.value.time = useFormatTime(res.query.departure_date_back);
       }
-      await sendPorts().then((res) => {
-        setListCards(res.cards);
-      });
+      if (listCards.value.length === 0) {
+        await sendPorts().then((res) => {
+          setListCards(res.cards);
+        });
+      }
     },
   });
   const cardFull = ref<T_STATE_ENTITY<I_CardsFull | T_Card | null>>({
-        entity: null,
-        error: {
-          msg:'',
-          status: false,
-        },
-        pending: false
-      })
-  
+    entity: null,
+    error: {
+      msg: '',
+      status: false,
+    },
+    pending: false
+  })
+
   const handleSearch = async () => {
-      if(!cardFull.value?.entity) return null
-      const res = await sendPorts();
-      const newCardID = getSimilarCardId(cardFull.value?.entity, res.cards)
-      if (!newCardID) return null
-      const cardNew = await $fetch<I_CardsFull>(useApiCora() + `cards/${newCardID}`)
-      cardFull.value = {
-        entity: cardNew,
-        error: {
-          msg:'',
-          status: false,
-        },
-        pending: false
-      }
-      await useRouter().replace(`/flight/${newCardID}`)
-  }
-  const setSimilarCard = (card: T_Card) => {
+    if (!cardFull.value?.entity) return null
+    const res = await sendPorts();
+    setListCards(res.cards);
+    const newCardID = getSimilarCardId(cardFull.value?.entity, res.cards)
+    if (!newCardID) return null
+    const cardNew = await $fetch<I_CardsFull>(useApiCora() + `cards/${newCardID}`)
     cardFull.value = {
-      entity: card,
+      entity: cardNew,
       error: {
-        msg:'',
+        msg: '',
         status: false,
       },
       pending: false
     }
-    handleSearch()
+    await useRouter().replace(`/flight/${newCardID}`)
+  }
+  const setSimilarCard = async (card: T_Card) => {
+    cardFull.value = {
+      entity: card,
+      error: {
+        msg: '',
+        status: false,
+      },
+      pending: false
+    }
+    const cardNew = await $fetch<I_CardsFull>(useApiCora() + `cards/${card.id}`)
+    cardFull.value = {
+      entity: cardNew,
+      error: {
+        msg: '',
+        status: false,
+      },
+      pending: false
+    }
+    await useRouter().replace(`/flight/${card.id}`)
   }
 </script>
 

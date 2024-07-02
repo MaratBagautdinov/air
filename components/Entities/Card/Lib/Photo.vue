@@ -9,7 +9,6 @@
   const props = defineProps<{
     salonPhoto: string,
     planeRoute: 'to' | 'from' | 'both' | 'none'
-    maxW: string
   }>();
   const [to, from] = TO_FROM
   const planeRouteLabelList = {
@@ -21,23 +20,23 @@
 
   let photoClass = computed(() => {
     return useState<number>("winWidth").value > 640
-      ? `w-[${props.maxW}px] h-[${props.maxW}px]`
-      : "w-full h-full max-w-[100px] block"
+      ? `w-full h-full`
+      : "w-full h-full block"
   })
 </script>
 
 <template>
-  <div :class="`relative block photo-card-wrap`">
+  <div :class="`relative block photo-card-wrap ${photoClass}`">
     <nuxt-img
       :src="useApiNajet() + salonPhoto"
       placeholder
       alt="aircraft-img"
-      :class="`photo-card aspect-square  ${photoClass}`"
+      :class="`photo-card aspect-square ${photoClass}`"
     />
     <nuxt-icon
       name="card-arrow"
       alt="card-arrow"
-      :class="`photo-card-arrow photo-card-arrow--${planeRoute}`"
+      :class="`photo-card-arrow h-full photo-card-arrow--${planeRoute}`"
     />
   </div>
 </template>
@@ -53,6 +52,10 @@
 
   .photo-card {
     border-radius: 9.5%;
+  }
+
+  .card-arrow-back {
+    color: inherit;
   }
 
   .card-item-lib-photo {

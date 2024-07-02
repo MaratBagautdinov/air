@@ -68,7 +68,7 @@
         </span>
 
         <div class="flex items-center gap-[50px] max-[640px]:w-full max-[640px]:justify-between head-bottom">
-          <search-list-passenger-count @handleSearch="handleSearch"/>
+          <search-list-passenger-count @handleSearch="handleSearch" />
 
           <search-list-filter-list />
 

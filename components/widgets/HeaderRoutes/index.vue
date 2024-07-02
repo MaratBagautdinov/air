@@ -20,10 +20,13 @@
           :class="`max-w-[300px] card-item p-3 ${nowCardID === card.id ? 'selected-card' : ''} `"
         >
           <NuxtLink
-            @click.prevent="emit('setSimilarCard', card)"
+            @click.prevent="nowCardID === card.id ? () => { } : emit('setSimilarCard', card)"
             :to="{ path: `/flight/${card.id}` }"
           >
-            <EntitiesCardRoutesMin :routes="card.routes" />
+            <EntitiesCardRoutesMin
+              :routes="card.routes"
+              :is-selected="nowCardID === card.id"
+            />
           </NuxtLink>
         </SwiperSlide>
       </Swiper>
@@ -43,7 +46,7 @@
   const pendingHeaderRoutes = computed(() => {
     return !listCards.value.length;
   })
-
+  console.log(getPortsState.value.error.status);
   const emit = defineEmits(['setSimilarCard'])
   const props = defineProps<{
     cardFull: I_CardsFull | T_Card | null

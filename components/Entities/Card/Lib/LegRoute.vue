@@ -10,7 +10,7 @@
                 airport?.city_rus
             }}
         </span>
-        <span class="text-gray">{{ date }}</span>
+        <span :class="isOtherTime ? 'text-orange' : 'text-light'">{{ date }}</span>
     </div>
 </template>
 
@@ -23,6 +23,7 @@
         date: string
         airport_icao: string,
         isOtherPort: boolean
+        isOtherTime: boolean
     }>()
     const date = useFormatTime(props.date)
     const airport = useFindByIcao(props.airport_icao)

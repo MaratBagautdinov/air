@@ -5,14 +5,14 @@
       :key="i"
     >
       <div v-if="plane">
-        <div class="flex items-center gap-[10px]">
+        <div class="grid grid-cols-[70px,1fr] items-center gap-[10px]">
           <EntitiesCardLibPhoto
             :salonPhoto="plane.aircraft_picture_urls?.salon"
             :planeRoute="(i === 0 ? 'to' : 'from')"
-            max-w="70"
+            :class="isSelected ? 'text-[#252525]' : 'text-[#121212]'"
           />
           <div class="flex flex-col">
-            <span class="block"> {{ plane?.aircraft_type }}</span>
+            <span class="block text-white"> {{ plane?.aircraft_type }}</span>
             <span class="block text-[12px] text-gray">
               {{ plane?.aircraft_class }}
             </span>
@@ -40,9 +40,10 @@
 >
   import type { T_Card } from '~/types';
 
-  const { currencyFilter, isBackLine } = storeToRefs(useStore());
-  const props = defineProps<{
+  const { currencyFilter } = storeToRefs(useStore());
+  defineProps<{
     routes: T_Card['routes']
+    isSelected: boolean
   }>()
 </script>
 

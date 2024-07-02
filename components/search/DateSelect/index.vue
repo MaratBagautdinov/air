@@ -33,11 +33,15 @@
   });
   const windowWidth = useState<number>("winWidth");
   const isOpened = defineModel<boolean>()
+  const close = () => {
+    isOpened.value = false
+    dateFull.value = ({ date: { ...props.date.date }, time: props.date.time });
+  }
   const submit = async () => {
     props.onSelectDate(setDate(dateFull.value.date.full));
     props.onSelectTime(dateFull.value.time);
     isOpened.value = false
-    if (useRoute().fullPath.includes('search')) {
+    if (useRoute().fullPath !== '/') {
       await sendPorts().then((res) => {
         setListCards(res.cards)
         useRouter().replace({ path: "/search/" + res.id });
@@ -77,6 +81,7 @@
       :times
       :isOpened="isOpened ?? false"
       :submit
+      :close
       v-model="dateFull"
     />
   </div>

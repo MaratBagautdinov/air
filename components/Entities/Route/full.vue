@@ -198,7 +198,6 @@
     lineType: number
   }>()
   const { isBackLine } = storeToRefs(useStore());
-  console.log(props.route.aircraft);
   const gallery = await $fetch<T_FlightImages>(
 
     useApiNajet() + "/api/images/" + props.route.aircraft,

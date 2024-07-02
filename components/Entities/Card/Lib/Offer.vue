@@ -21,7 +21,7 @@
     return useState<number>("winWidth").value > 640 ?
       "flex flex-col justify-between text-end"
       :
-      "flex h-full gap-[20px] justify-between flex-row-reverse"
+      "flex h-full gap-[20px] justify-between flex-col"
   })
   let fontClass = computed(() => {
     return useState<number>("winWidth").value > 640 ?
@@ -40,7 +40,7 @@
         class="w-[200px]"
         :src="useApiNajet() + avatar"
       />
-      <div class="flex items-center justify-end gap-[40px]">
+      <div class="flex items-center justify-end max-[640px]:justify-start gap-[40px]">
         <span :class="`text-${fontClass} text-gray`">{{ aircraft_year_of_creation }}</span>
         <span :class="`text-${fontClass} text-gray`">
           {{ max_pax }}
