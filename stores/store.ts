@@ -51,7 +51,7 @@ export const useStore = defineStore("searchFly", {
         aircraftTypeFilter: "",
         errorText: "",
         needSearch: false,
-        isFilterOpened: true,
+        isFilterOpened: false,
     }),
     getters: {},
     actions: {
