@@ -40,7 +40,7 @@
     <transition name="slide-up">
         <div
             v-if="isFilterOpened"
-            class="left-0 px-[20px] py-[30px] absolute top-[70px] right-0 z-50 border border-white bg-dark max-[542px]:px-2 max-[542px]:py-[20px] max-[542px]:left-0 max-[542px]:w-full"
+            class="max-w-[500px] px-[20px] py-[30px] absolute top-[70px] right-0 z-50 border border-white bg-dark max-[542px]:px-2 max-[542px]:py-[20px] max-[542px]:left-0 max-[542px]:w-full"
         >
             <div class="w-full">
                 <div class="grid grid-cols-2">

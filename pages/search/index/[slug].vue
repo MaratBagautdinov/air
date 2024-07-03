@@ -19,8 +19,8 @@
             </WidgetsErrorBlock>
             <WidgetsCardListSearch v-else />
         </ul>
-        <WidgetsFilter v-if="windowWidth > 870" />
-        <WidgetsFilterMobile v-else />
+        <!-- <WidgetsFilter v-if="windowWidth > 870" />
+        <WidgetsFilterMobile v-else /> -->
     </section>
 </template>
 

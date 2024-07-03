@@ -19,7 +19,7 @@
         class=""
       />
     </button>
-
+    <WidgetsFilterMobile />
   </div>
 </template>
 
