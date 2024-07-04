@@ -144,7 +144,9 @@ export const formatDateToISO = (dateStr: string, timeStr: string) => {
 
 export const getSimilarCardId = (card: I_CardsFull | T_Card, cardsList: T_Card[]): I_CardsFull['id'] | undefined => {
     if (!card) return;
-    const isCard = cardsList.find(c => {
+    let isCard = cardsList.find(c => (card.id === c.id))
+    if (isCard) return isCard.id;
+    isCard = cardsList.find(c => {
         const r_1 = c.routes?.[0];
         const c_1 = card.routes?.[0];
         if (!r_1 || !c_1) return false;
