@@ -20,23 +20,23 @@
 
   let photoClass = computed(() => {
     return useState<number>("winWidth").value > 640
-      ? `w-full h-full`
+      ? props.planeRoute === 'none' ? 'aspect-square' : 'aspect-square-03'
       : "w-full h-full block"
   })
 </script>
 
 <template>
-  <div :class="`relative block photo-card-wrap ${photoClass}`">
+  <div :class="`relative block overflow-hidden box-border photo-card-wrap ${photoClass}`">
     <nuxt-img
       :src="useApiNajet() + salonPhoto"
       placeholder
       alt="aircraft-img"
-      :class="`photo-card aspect-square ${photoClass}`"
+      :class="`photo-card scale-[0.99] ${photoClass}`"
     />
     <nuxt-icon
       name="card-arrow"
       alt="card-arrow"
-      :class="`photo-card-arrow h-full photo-card-arrow--${planeRoute}`"
+      :class="`photo-card-arrow h-full scale-[0.996] photo-card-arrow--${planeRoute}`"
     />
   </div>
 </template>
@@ -92,5 +92,9 @@
   .nuxt-icon.nuxt-icon--fill,
   .nuxt-icon.nuxt-icon--fill * {
     fill: auto !important;
+  }
+
+  .aspect-square-03 {
+    aspect-ratio: 1.03 / 1;
   }
 </style>

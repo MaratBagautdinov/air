@@ -21,7 +21,7 @@
 <template>
   <li
     :key="card.id"
-    class="last:pb-0 last:border-b-0 pb-[40px] max-[640px]:border-b-0 max-[640px]:pb-[14px] cards-item flex gap-[15px] flex-col"
+    class="last:pb-0 last:border-b-0 pb-[40px] max-[640px]:border-b-0 max-[640px]:pb-[14px] cards-item flex gap-[22px] flex-col"
   >
     <template
       v-for="(plane, i) in card.routes"
