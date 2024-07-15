@@ -155,6 +155,8 @@ export const useStore = defineStore("searchFly", {
                         ...(this.isBackLine && formattedDateBack && { pax_back: this.passengerCount }),
                     },
                 });
+                console.log(res.error, !!res.error);
+
                 if (res.error) {
                     this.getPortsState.error.status = true;
                     this.getPortsState.error.msg = res.error.text;

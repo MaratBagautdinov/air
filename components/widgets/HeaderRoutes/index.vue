@@ -1,6 +1,6 @@
 <template>
   <WidgetsHeaderRoutesShimmer v-if="pendingHeaderRoutes || getPortsState.pending" />
-  <div v-else-if="getPortsState.error.status"></div>
+  <div v-else-if="getPortsState.error.status && !getPortsState.entity"></div>
   <template v-else>
     <div
       v-if="listCards && listCards.length > 0"
@@ -46,7 +46,6 @@
   const pendingHeaderRoutes = computed(() => {
     return !listCards.value.length;
   })
-  console.log(getPortsState.value.error.status);
   const emit = defineEmits(['setSimilarCard'])
   const props = defineProps<{
     cardFull: I_CardsFull | T_Card | null
