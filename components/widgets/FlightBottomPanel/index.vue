@@ -8,7 +8,6 @@
     finalPrice: string
   }>()
   const route = useRoute()
-  const isOpenSidebar = defineModel<boolean>("isOpenSidebar")
   const setNextCurrencyFilter = () => {
     const to: {
       'RUB': T_Currency,
@@ -40,6 +39,7 @@
       href: `mailto:`
     }
   ]
+  const isOpenSidebar = defineModel<boolean>("isOpenSidebar")
 </script>
 
 <template>

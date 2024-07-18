@@ -15,9 +15,9 @@
     return priceFormat(Number(merge_price), currencyFilter.value);
   });
 
-  const isOpenSidebar = ref<boolean>(false);
 
   const emit = defineEmits(['handleSearchBack'])
+  const isOpenSidebar = defineModel<boolean>("isOpenSidebar")
 </script>
 
 <template>
@@ -41,7 +41,6 @@
         :finalPrice
         v-model:isOpenSidebar="isOpenSidebar"
       />
-      <WidgetsFlightForm v-model:isOpenSidebar="isOpenSidebar" />
     </div>
   </div>
 </template>

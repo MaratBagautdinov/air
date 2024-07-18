@@ -17,18 +17,17 @@
     sended: false,
     error: false,
   });
-
   const handleOrderRoute = async () => {
     formState.value.sended = false;
     formState.value.pending = true;
 
     try {
-      const res = await $fetch(useApiUrl() + "auth/send_login_sms", {
+      const res = await $fetch<{ its_new_user: boolean }>(useApiUrl() + "auth/send_login_sms", {
         method: "POST",
         body: {
           phone: userData.value.phone,
           its_legal: true,
-          url: `https://search-weltall.najet.ru/flight/${useRoute().params.slug}`,
+          url: `https://air-api.na4u.ru/flight/${useRoute().params.slug}`,
           name: userData.value.name,
           email: userData.value.mail,
         },
@@ -36,10 +35,6 @@
 
       if (res) {
         formState.value.sended = true;
-        setTimeout(() => {
-          formState.value.sended = false;
-          isOpenSidebar.value = false;
-        }, 2500);
       }
     } catch (e) {
       console.error(e);
@@ -52,11 +47,11 @@
 
 <template>
   <VueSidePanel
-    :rerender="true"
+    z-index="10000"
     v-model="isOpenSidebar"
   >
     <div
-      class="w-[700px] px-[50px] py-[70px] h-full bg-[#121212] max-[768px]:w-full max-[768px]:max-w-[500px] max-[640px]:px-[10px] max-[640px]:py-[40px]"
+      class="w-[700px] px-[50px] py-[70px] min-h-full bg-[#121212] max-[768px]:w-full max-[768px]:max-w-[500px] max-[640px]:px-[10px] max-[640px]:py-[40px]"
     >
       <div v-if="formState.pending">
         <shared-loader />
@@ -78,7 +73,8 @@
       <div v-else>
         <form
           v-if="!formState.sended"
-          @submit="handleOrderRoute"
+          class="h-full"
+          @submit.prevent="handleOrderRoute"
         >
           <span class="text-34">Бронирование перелета</span>
 
@@ -131,6 +127,7 @@
             <shared-btn
               text="заказать"
               class="w-full"
+              type="submit"
             />
           </div>
         </form>
@@ -138,7 +135,7 @@
           v-else
           class="w-full h-full"
         >
-          <span class="text-30"> Заявка успешно отправлена</span>
+          <WidgetsFlightFormConfirmPhone :phone="userData.phone" />
         </div>
       </div>
     </div>

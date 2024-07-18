@@ -99,6 +99,7 @@
     }
     await useRouter().replace(`/flight/${card.id}`)
   }
+  const isOpenSidebar = ref<boolean>(false)
 </script>
 
 <template>
@@ -114,7 +115,9 @@
         v-if="cardFull.entity"
         :card="cardFull.entity"
         @handleSearchBack="handleSearch"
+        v-model:isOpenSidebar="isOpenSidebar"
       />
+      <WidgetsFlightForm v-model:isOpenSidebar="isOpenSidebar" />
     </section>
   </div>
 </template>

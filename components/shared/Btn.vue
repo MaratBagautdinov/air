@@ -4,6 +4,11 @@
             type: String,
             default: "Кнопка",
         },
+        type: {
+            type: String,
+            default: "button",
+            required: false,
+        },
         disabled: {
             type: Boolean,
             default: false,
@@ -12,9 +17,11 @@
 </script>
 
 <template>
+
     <button
         class="btn"
         :disabled="props.disabled"
+        :type="props.type"
     >{{ props.text }}</button>
 </template>
 

@@ -3,7 +3,8 @@
     label: String,
     placeholder: String,
     required: Boolean,
-    type: "tel" | "text" | "number"
+    type: "tel" | "text" | "number",
+    disabled: Boolean,
   });
   const model = defineModel()
 </script>
@@ -19,6 +20,7 @@
       id="phone"
       v-model="model"
       mask="+7 (999) 999 99-99"
+      :disabled="disabled"
       :placeholder="placeholder"
     />
     <input
@@ -27,6 +29,7 @@
       :type="type"
       :required="required"
       :placeholder="placeholder"
+      :disabled="disabled"
       v-model="model"
     />
   </div>
