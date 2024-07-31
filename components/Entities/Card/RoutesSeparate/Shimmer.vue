@@ -15,9 +15,8 @@
       >
         <div
           data-v-c03a4a04=""
-          class="relative block max-w-[220px] min-w-fit photo-card-wrap card-item-lib-photo shimmer"
+          class="relative block w-[220px] h-[220px] photo-card-wrap card-item-lib-photo shimmer"
         >
-          <div class="photo-card aspect-square overflow-hidden w-[220px] h-[220px] shimmer" />
         </div>
         <div
           data-v-c03a4a04=""

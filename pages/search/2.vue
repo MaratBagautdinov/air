@@ -6,35 +6,11 @@
   const { setListCards, setDateBack, setDatePort, sendPorts } = useStore();
 
   const windowWidth = useState<number>("winWidth");
+  import type { T_Card } from '~/types';
+  import cardList from './index/cardList.json'
   const route = useRoute()
 
-  flightState.value.pending = true;
-  flightState.value.error.status = false;
-  flightState.value.error.msg = '';
-  const { data, refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
-    key: Date.now().toString(),
-    onResponse: ({ response }) => {
-      const res = response._data
-      flightState.value.pending = false;
-      if (res.error?.text) {
-        flightState.value.error.status = true;
-        flightState.value.error.msg = res.error.text;
-      }
-      setListCards(res.cards);
-      passengerCount.value = res.query.pax_there;
 
-      fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
-      toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
-
-      setDatePort(setDate(new Date(res.query.departure_date_there)))
-      datePort.value.time = useFormatTime(res.query.departure_date_there);
-      if (res.query.departure_date_back) {
-        isBackLine.value = true
-        setDateBack(setDate(new Date(res.query.departure_date_back)))
-        dateBack.value.time = useFormatTime(res.query.departure_date_back);
-      }
-    },
-  });
   const handleSearch = () => {
     sendPorts().then((res) => {
       setListCards(res.cards)
@@ -76,8 +52,16 @@
         </div>
       </div>
 
-      <NuxtPage />
-
+      <section class="py-[60px] max-[640px]:py-[30px] max-[640px]:pt-0 flex gap-2 transition-all">
+        <ul class="flex flex-col gap-[40px] max-[640px]:px-2 max-[640px]:gap-[14px] w-full">
+          <EntitiesCardRoutesSeparate
+            v-for="card in cardList"
+            :key="card.id"
+            :card="(card as unknown as T_Card)"
+            :isShimmner="true"
+          />
+        </ul>
+      </section>
     </div>
   </div>
 </template>

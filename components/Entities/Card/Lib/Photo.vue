@@ -20,23 +20,20 @@
 
   let photoClass = computed(() => {
     return useState<number>("winWidth").value > 640
-      ? props.planeRoute === 'none' ? 'aspect-square' : 'aspect-square-03'
+      ? props.planeRoute === 'none' ? 'aspect-square-92' : 'aspect-square-03'
       : "w-full h-full block"
   })
 </script>
 
 <template>
-  <div :class="`relative block overflow-hidden box-border photo-card-wrap ${photoClass}`">
-    <nuxt-img
-      :src="useApiNajet() + salonPhoto"
-      placeholder
-      alt="aircraft-img"
-      :class="`photo-card scale-[0.99] ${photoClass}`"
-    />
+  <div
+    :class="`relative block box-border photo-card-wrap ${photoClass}`"
+    :style="`background-image: url(${useApiNajet()}${salonPhoto})`"
+  >
     <nuxt-icon
       name="card-arrow"
       alt="card-arrow"
-      :class="`photo-card-arrow h-full scale-[0.996] photo-card-arrow--${planeRoute}`"
+      :class="`photo-card-arrow h-full scale-[1.005] photo-card-arrow--${planeRoute}`"
     />
   </div>
 </template>
@@ -51,7 +48,16 @@
   }
 
   .photo-card {
-    border-radius: 9.5%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    min-width: 100%;
+    max-width: auto;
+    max-height: 100%;
   }
 
   .card-arrow-back {
@@ -60,6 +66,15 @@
 
   .card-item-lib-photo {
     transform: skew(-1.5deg);
+  }
+
+  .photo-card-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9.5%;
+    background-size: cover;
+    background-position: center;
   }
 
   .photo-card-arrow {
@@ -80,7 +95,7 @@
 
     &--to {
       left: -1px;
-      transform: scale(-1, -1);
+      rotate: 180deg;
     }
 
     &--none {
@@ -96,5 +111,9 @@
 
   .aspect-square-03 {
     aspect-ratio: 1.03 / 1;
+  }
+
+  .aspect-square-92 {
+    aspect-ratio: .92 / 1;
   }
 </style>

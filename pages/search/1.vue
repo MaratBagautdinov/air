@@ -8,33 +8,7 @@
   const windowWidth = useState<number>("winWidth");
   const route = useRoute()
 
-  flightState.value.pending = true;
-  flightState.value.error.status = false;
-  flightState.value.error.msg = '';
-  const { data, refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
-    key: Date.now().toString(),
-    onResponse: ({ response }) => {
-      const res = response._data
-      flightState.value.pending = false;
-      if (res.error?.text) {
-        flightState.value.error.status = true;
-        flightState.value.error.msg = res.error.text;
-      }
-      setListCards(res.cards);
-      passengerCount.value = res.query.pax_there;
 
-      fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
-      toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
-
-      setDatePort(setDate(new Date(res.query.departure_date_there)))
-      datePort.value.time = useFormatTime(res.query.departure_date_there);
-      if (res.query.departure_date_back) {
-        isBackLine.value = true
-        setDateBack(setDate(new Date(res.query.departure_date_back)))
-        dateBack.value.time = useFormatTime(res.query.departure_date_back);
-      }
-    },
-  });
   const handleSearch = () => {
     sendPorts().then((res) => {
       setListCards(res.cards)
@@ -76,7 +50,18 @@
         </div>
       </div>
 
-      <NuxtPage />
+      <WidgetsErrorBlock v-if="flightState.error.msg">
+        <div class="flex items-center gap-[10px]">
+          <div class="text-[30px] font-bold">{{ fromPort?.city_rus }}</div>
+          <span class="text-[30px] font-bold">-</span>
+          <div class="text-[30px] font-bold">{{ toPort?.city_rus }}</div>
+        </div>
+        <div class="text-lg">
+          {{
+            flightState.error.msg
+          }}
+        </div>
+      </WidgetsErrorBlock>
 
     </div>
   </div>

@@ -5,7 +5,8 @@ import { formatDateToISO, getNextDateFull } from "~/utils";
 
 
 interface I_STATE {
-    getPortsState: T_STATE_ENTITY<[T_Port | null, T_Port | null]>,
+    getPortsState: T_STATE_ENTITY<T_Port[]>,
+    flightState: T_STATE_ENTITY<I_CardsAPI | undefined>,
     fromPort: T_Port | null,
     toPort: T_Port | null,
     datePort: T_SearchDate,
@@ -40,7 +41,15 @@ export const useStore = defineStore("searchFly", {
                 status: false,
                 msg: "",
             },
-            entity: [null, null],
+            entity: [],
+        },
+        flightState: {
+            pending: true,
+            error: {
+                status: false,
+                msg: "",
+            },
+            entity: undefined
         },
         passengerCount: 1,
         isBackLine: false,
@@ -78,7 +87,7 @@ export const useStore = defineStore("searchFly", {
             if (this.dateBack) {
                 const to = (new Date(date.date))
                 const from = (new Date(this.dateBack.date.date))
-                if (to > from) {
+                if (to >= from) {
                     this.dateBack.date = setDate(getNextDateFull(to, 1))
                 }
             }
@@ -127,7 +136,6 @@ export const useStore = defineStore("searchFly", {
             } catch (e) {
                 console.error(e);
                 this.getPortsState.error.status = true;
-                this.getPortsState.error.msg = String(e);
             } finally {
                 this.getPortsState.pending = false;
             }
@@ -135,9 +143,9 @@ export const useStore = defineStore("searchFly", {
 
 
         async sendPorts(): Promise<I_CardsAPI> {
-            this.getPortsState.pending = true;
-            this.getPortsState.error.status = false;
-            this.getPortsState.error.msg = '';
+            this.flightState.pending = true;
+            this.flightState.error.status = false;
+            this.flightState.error.msg = '';
 
             const formattedDate = formatDateToISO(this.datePort.date.date, this.datePort.time);
             const formattedDateBack = this.dateBack ? formatDateToISO(this.dateBack.date.date, this.dateBack.time) : '';
@@ -155,22 +163,25 @@ export const useStore = defineStore("searchFly", {
                         ...(this.isBackLine && formattedDateBack && { pax_back: this.passengerCount }),
                     },
                 });
-                if (res.error) {
-                    this.getPortsState.error.status = true;
-                    this.getPortsState.error.msg = res.error.text;
+
+                if (res.error?.text) {
+                    this.flightState.error.status = true;
+                    this.flightState.error.msg = res.error.text;
                     return res;
                 }
                 if (this.passengerCount > 8 && res.cards.length === 0) {
-                    this.getPortsState.error.status = true;
-                    this.getPortsState.error.msg = 'К сожалению, флот авиакомпании не имеет самолетов с требуемым количеством пассажирских мест. Вы можете обратиться к нам по адресу charter@weltall.ru или по телефону +7 (495) 129 29 04  и мы подберем Вам необходимый вариант.';
+                    this.flightState.error.status = true;
+                    this.flightState.error.msg = 'К сожалению, флот авиакомпании не имеет самолетов с требуемым количеством пассажирских мест. Вы можете обратиться к нам по адресу charter@weltall.ru или по телефону +7 (495) 129 29 04  и мы подберем Вам необходимый вариант.';
                 }
+                this.flightState.pending = false;
+                this.flightState.entity = res;
                 return res;
             } catch (error) {
+                this.flightState.pending = false;
                 console.error(error);
-                this.getPortsState.error.status = true;
-                this.getPortsState.error.msg = String(error);
+                this.flightState.error.status = true;
             } finally {
-                this.getPortsState.pending = false;
+                this.flightState.pending = false;
             }
             return {
                 cards: [],

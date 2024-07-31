@@ -8,11 +8,14 @@
         >{{ TO_FROM[lineType] }}</span>
         <div class="flex items-center gap-10 max-[520px]:flex-col max-[520px]:gap-1 ">
           <h1 class="text-34 max-[460px]:text-22 h-fit">{{ route?.aircraft_type }}</h1>
-          <span class="text-34 max-[460px]:text-22">{{ formatDateFromIso(route?.departure_date) }}</span>
+          <span class="text-34 max-[460px]:text-22">{{ formatDateFromIso(route?.departure_date_local) }}</span>
         </div>
       </div>
 
-      <search-list-back-btn v-if="lineType === 0" @handleSearchBack="emit('handleSearchBack')" />
+      <search-list-back-btn
+        v-if="lineType === 0"
+        @handleSearchBack="emit('handleSearchBack')"
+      />
     </div>
 
     <div class="mt-[30px] flex w-full gap-[30px] max-[1321px]:gap-[20px] max-[1321px]:flex-col max-[460px]:mt-[20px]">
@@ -27,7 +30,7 @@
 
         <div class="mt-4 text-center">
           <span class="text-18 uppercase">
-            {{ formatDuration(route?.departure_date, route?.arrival_date) }}
+            {{ formatDuration(route?.departure_date_local, route?.arrival_date_local) }}
           </span>
         </div>
 
@@ -58,7 +61,7 @@
 
         <div class="mt-8 flex flex-col">
           <span class="">Предложение: №{{ route?.number }}</span>
-          <span :class="`text-14 text-gray leading-[16px] ${!datetime_local ? 'shimmer' : ''}` ">
+          <span :class="`text-14 text-gray leading-[16px] ${!datetime_local ? 'shimmer' : ''}`">
             Информация является актуальной на {{ datetime_local ? testFOrmat(datetime_local) : '' }}. При
             необходимости свяжитесь с оператором по телефону: +7 (495) 129-29-04, назовите номер
             предложения для быстрой идентификации.
@@ -71,7 +74,7 @@
       >
         <div class="mt-4 text-center">
           <span class="text-18 uppercase max-[460px]:text-12">
-            {{ formatDuration(route?.departure_date, route?.arrival_date) }}
+            {{ formatDuration(route?.departure_date_local, route?.arrival_date_local) }}
           </span>
         </div>
         <nuxt-img
@@ -135,7 +138,7 @@
 
         <div class="mt-8 flex flex-col">
           <span class="">Предложение: №{{ route?.number }}</span>
-          <span :class="`text-14 text-gray leading-[16px] ${!datetime_local ? 'shimmer' : ''}` ">
+          <span :class="`text-14 text-gray leading-[16px] ${!datetime_local ? 'shimmer' : ''}`">
             Информация является актуальной на {{ datetime_local ? testFOrmat(datetime_local) : '' }}. При
             необходимости свяжитесь с оператором по телефону: +7 (495) 129-29-04, назовите номер
             предложения для быстрой идентификации.
@@ -207,7 +210,7 @@
       },
     }
   );
-    const emit = defineEmits(['handleSearchBack'])
+  const emit = defineEmits(['handleSearchBack'])
   const testFOrmat = (isoDate: string) => {
     const date = new Date(isoDate);
 

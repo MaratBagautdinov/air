@@ -11,6 +11,7 @@
     price: T_Price | null,
     max_pax: RoutesEntity['max_pax'],
     avatar: AircraftPictureUrls['avatar']
+    isShimmner?: boolean
   }>()
   const formatPrice = (price: T_Price | null) => {
     if (price === null) return ''
@@ -34,12 +35,16 @@
     <h3 :class="`text-${windowWidth > 640 ? 30 : 16} direct font-light uppercase`">{{ formatPrice(price) }}</h3>
     <div :class="`flex gap-4 align-bottom ${windowWidth > 1000 ? '' : 'flex-col-reverse'}`">
       <nuxt-img
-        v-if="!isFilterOpened && avatar && windowWidth > 640"
+        v-if="!isShimmner && !isFilterOpened && avatar && windowWidth > 640"
         loading="lazy"
         alt="aircraft-img"
-        class="w-[200px]"
+        :class="`w-[200px]`"
         :src="useApiNajet() + avatar"
       />
+      <div
+        :class="`w-[200px]`"
+        v-else
+      ></div>
       <div class="flex items-center justify-end max-[640px]:justify-start gap-[40px]">
         <span :class="`text-${fontClass} text-gray`">{{ aircraft_year_of_creation }}</span>
         <span :class="`text-${fontClass} text-gray`">

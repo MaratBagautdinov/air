@@ -10,10 +10,11 @@
     aircraft_class: RoutesEntity['aircraft_class'],
     leg?: LegsEntity,
     planeRoute: 'to' | 'from'
+    isShimmner?: boolean
   }>()
   const windowWidth = useState<number>('winWidth')
   const otherPorts = computed(() => {
-    if (!props.leg) return [];
+    if (!props.leg || props.isShimmner) return [];
 
     const arr = [];
     const { departure_airport, arrival_airport } = props.leg;
@@ -40,7 +41,7 @@
     return arr;
   });
   const otherTimes = computed(() => {
-    if (!props.leg) return [];
+    if (!props.leg || props.isShimmner) return [];
 
     const arr = [];
     const { start_date } = props.leg;
@@ -63,10 +64,10 @@
 <template>
   <div class="flex flex-col justify-between">
     <div>
-      <h3 :class="`text-${windowWidth > 640 ? 30 : 14} font-light uppercase`">
+      <h3 :class="`text-${windowWidth > 640 ? 30 : 14} font-light uppercase ${isShimmner ? 'shimmer mb-2' : ''}`">
         {{ aircraft_type }}
       </h3>
-      <span :class="`uppercase text-${windowWidth > 640 ? 18 : 12} text-gray`">
+      <span :class="`uppercase text-${windowWidth > 640 ? 18 : 12} text-gray ${isShimmner ? 'shimmer' : ''}`">
         {{ aircraft_class }}
       </span>
     </div>
@@ -75,7 +76,7 @@
       v-if="otherPorts.length > 0"
     >Другой аэропорт</div>
     <div
-      class="bg-orange text-black flex align-middle rounded-md text-center justify-center p-[3px] text-[13px]"
+      :class="`bg-orange text-black flex align-middle rounded-md text-center justify-center p-[3px] text-[13px]`"
       v-if="otherTimes.length > 0"
     >Другое время</div>
     <div
@@ -88,6 +89,7 @@
         :otherPorts
         :otherTimes
         :leg
+        :class="isShimmner ? 'shimmer' : ''"
       />
     </div>
   </div>

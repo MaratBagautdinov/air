@@ -3,6 +3,7 @@
   setup
 >
   import type { T_Currency } from "@/types";
+  import queryString from "query-string";
 
   const props = defineProps<{
     finalPrice: string
@@ -21,22 +22,31 @@
     useStore().setCurrency(to[currencyFilter.value])
   };
   const { currencyFilter } = storeToRefs(useStore());
-
+  const { toPort, fromPort } = storeToRefs(useStore());
+  function stringToHTML(str: string): HTMLDivElement {
+    var dom = document.createElement('div');
+    dom.innerHTML = str;
+    return dom;
+  };
+  const socialLinksText = `Weltall-avia: https://weltall.aero/ \r\n\r\nМаршрут ${fromPort.value?.city_rus} - ${toPort.value?.city_rus}: ${document.location.href}`;
   const socialLinks: { icon: string, href: string, label: string }[] = [
     {
       label: "Telegram",
       icon: 'telegram',
-      href: `https://telegram.me/share/url?url=${document.location.href}`
+      href: `https://telegram.me/share/url?url=${socialLinksText}`
     },
     {
       label: "Whatsapp",
       icon: 'whatsapp',
-      href: `https://api.whatsapp.com/send/?text=${document.location.href}`
+      href: `https://api.whatsapp.com/send/?text=${socialLinksText}`
     },
     {
       label: "Mail",
       icon: 'mail',
-      href: `mailto:`
+      href: `mailto:?` + queryString.stringify({
+        subject: `Список возможных маршрутов ${fromPort.value?.city_rus} - ${toPort.value?.city_rus}`,
+        body: (socialLinksText)
+      })
     }
   ]
   const isOpenSidebar = defineModel<boolean>("isOpenSidebar")

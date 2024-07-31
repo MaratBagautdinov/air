@@ -1,0 +1,320 @@
+[
+    {
+        "id": "04042ef3-9d4d-4e1c-8ba7-3c139600336d",
+        "routes": [
+            {
+                "aircraft": "RA-02878",
+                "aircraft_type": "Hawker 800",
+                "daylight_only": null,
+                "aircraft_year_of_creation": 1992,
+                "aircraft_year_of_renewal": 2016,
+                "aircraft_year_of_overhaul": 2016,
+                "aircraft_picture_url": "/media/RA-02878/avatar.png",
+                "aircraft_picture_urls": {
+                    "avatar": "/media/RA-02878/avatar.png",
+                    "salon": "/media/RA-02878/salon.jpeg",
+                    "seats": "/media/RA-02878/seats.png"
+                },
+                "aircraft_class": "Mid-size jet",
+                "departure_date": "2024-07-31T12:00:00Z",
+                "arrival_date": "2024-07-31T15:41:09.512897Z",
+                "departure_date_local": "2024-07-31T15:00:00Z",
+                "arrival_date_local": "2024-07-31T18:41:09.512897Z",
+                "departure_airport": "UUWW",
+                "arrival_airport": "URSS",
+                "flight_id": "5bd0626b-e4c2-49bf-b52e-8618730c0774",
+                "operator": "weltall",
+                "operator_logo": "https://site-api.najet.ru/airlines-files/weltall/logo_ru.png",
+                "operator_name": "ООО «Авиакомпания «Вельталь-авиа»",
+                "operator_phone": "+7 (3812) 92-77-17",
+                "operator_email": "charter@weltall.ru",
+                "max_pax": 8,
+                "price": {
+                    "eur": 36891,
+                    "rub": 3472770,
+                    "usd": 40122
+                },
+                "legs": [
+                    {
+                        "departure_airport": "UUWW",
+                        "arrival_airport": "URSS",
+                        "is_emptyleg": false,
+                        "start_date": "2024-07-31T12:00:00Z",
+                        "end_date": "2024-07-31T15:41:09.512897Z",
+                        "type": "flight",
+                        "pax": "1",
+                        "id": "ae49b2ed-da78-4e09-b49c-071f5356fc49",
+                        "route_yandex_map": "https://static-maps.yandex.ru/1.x/?l=map&pl=c:000000,f:8822DD40,w:2,37.273,55.5991,38.896265,53.629618,44.257593,53.143586,50.297396,49.212503,48.029229,46.34762,46.805012,44.737436,39.9469,43.4444&pt=37.273,55.5991,1~38.896265,53.629618,2~44.257593,53.143586,3~50.297396,49.212503,4~48.029229,46.34762,5~46.805012,44.737436,6~39.9469,43.4444,7"
+                    },
+                    {
+                        "departure_airport": "URSS",
+                        "arrival_airport": "UUWW",
+                        "is_emptyleg": true,
+                        "start_date": "2024-07-31T18:26:09.512897Z",
+                        "end_date": "2024-07-31T22:07:19.025794Z",
+                        "type": "flight",
+                        "pax": "0",
+                        "id": "7d059da6-97f2-48f1-8d42-e52a28535ed1",
+                        "route_yandex_map": "https://static-maps.yandex.ru/1.x/?l=map&pl=c:000000,f:8822DD40,w:2,37.273,55.5991,38.896265,53.629618,44.257593,53.143586,50.297396,49.212503,48.029229,46.34762,46.805012,44.737436,39.9469,43.4444&pt=37.273,55.5991,1~38.896265,53.629618,2~44.257593,53.143586,3~50.297396,49.212503,4~48.029229,46.34762,5~46.805012,44.737436,6~39.9469,43.4444,7"
+                    }
+                ],
+                "start_date": "2024-07-31T10:49:48Z",
+                "end_date": "2024-08-01T12:42:07.025794Z",
+                "crew": [
+                    {
+                        "5324f36e-0ae1-11ec-9440-50e085cb6389": "f3bca006-2c8b-11ef-9f0c-5254009cc6e0"
+                    }
+                ],
+                "need_agreements": true,
+                "is_discount": false,
+                "discount_url": null,
+                "is_emptyleg": false,
+                "characteristics": {
+                    "cabin_height": "1,75",
+                    "cabin_length": "6,50",
+                    "interior_width": "1,82",
+                    "wing_span": "15,66",
+                    "fuselage_height": "5,51",
+                    "fuselage_length": "15,6",
+                    "flying_range": 3500,
+                    "cruising_speed": 750,
+                    "mtom": 12400
+                },
+                "pax": 1,
+                "number": "126119-1"
+            },
+            {
+                "aircraft": "RA-02878",
+                "aircraft_type": "Hawker 800",
+                "daylight_only": null,
+                "aircraft_year_of_creation": 1992,
+                "aircraft_year_of_renewal": 2016,
+                "aircraft_year_of_overhaul": 2016,
+                "aircraft_picture_url": "/media/RA-02878/avatar.png",
+                "aircraft_picture_urls": {
+                    "avatar": "/media/RA-02878/avatar.png",
+                    "salon": "/media/RA-02878/salon.jpeg",
+                    "seats": "/media/RA-02878/seats.png"
+                },
+                "aircraft_class": "Mid-size jet",
+                "departure_date": "2024-08-01T12:00:00Z",
+                "arrival_date": "2024-08-01T15:41:09.512897Z",
+                "departure_date_local": "2024-08-01T15:00:00Z",
+                "arrival_date_local": "2024-08-01T18:41:09.512897Z",
+                "departure_airport": "URSS",
+                "arrival_airport": "UUWW",
+                "flight_id": "a16cec1e-de0e-4450-b069-01877361537e",
+                "operator": "weltall",
+                "operator_logo": "https://site-api.najet.ru/airlines-files/weltall/logo_ru.png",
+                "operator_name": "ООО «Авиакомпания «Вельталь-авиа»",
+                "operator_phone": "+7 (3812) 92-77-17",
+                "operator_email": "charter@weltall.ru",
+                "max_pax": 8,
+                "price": {
+                    "eur": 3514,
+                    "rub": 330750,
+                    "usd": 3822
+                },
+                "legs": [
+                    {
+                        "departure_airport": "URSS",
+                        "arrival_airport": "UUWW",
+                        "is_emptyleg": false,
+                        "start_date": "2024-08-01T12:00:00Z",
+                        "end_date": "2024-08-01T15:41:09.512897Z",
+                        "type": "flight",
+                        "pax": "1",
+                        "id": "2eac7abf-5094-4081-b0cf-c945d5b7fcc4",
+                        "route_yandex_map": "https://static-maps.yandex.ru/1.x/?l=map&pl=c:000000,f:8822DD40,w:2,37.273,55.5991,38.896265,53.629618,44.257593,53.143586,50.297396,49.212503,48.029229,46.34762,46.805012,44.737436,39.9469,43.4444&pt=37.273,55.5991,1~38.896265,53.629618,2~44.257593,53.143586,3~50.297396,49.212503,4~48.029229,46.34762,5~46.805012,44.737436,6~39.9469,43.4444,7"
+                    }
+                ],
+                "start_date": "2024-07-31T17:15:57.512897Z",
+                "end_date": "2024-08-02T07:15:57.512897Z",
+                "crew": [
+                    {
+                        "5324f36e-0ae1-11ec-9440-50e085cb6389": "f3bca006-2c8b-11ef-9f0c-5254009cc6e0"
+                    }
+                ],
+                "need_agreements": true,
+                "is_discount": false,
+                "discount_url": null,
+                "is_emptyleg": false,
+                "characteristics": {
+                    "cabin_height": "1,75",
+                    "cabin_length": "6,50",
+                    "interior_width": "1,82",
+                    "wing_span": "15,66",
+                    "fuselage_height": "5,51",
+                    "fuselage_length": "15,6",
+                    "flying_range": 3500,
+                    "cruising_speed": 750,
+                    "mtom": 12400
+                },
+                "pax": 1,
+                "number": "126119-2"
+            }
+        ],
+        "need_agreements": true,
+        "order_by_time": 1,
+        "script": false
+    },
+    {
+        "id": "7ae0aca9-ef34-493c-85b5-3b1f4feec550",
+        "routes": [
+            {
+                "aircraft": "RA-02808",
+                "aircraft_type": "Hawker 700",
+                "daylight_only": null,
+                "aircraft_year_of_creation": 1986,
+                "aircraft_year_of_renewal": 2019,
+                "aircraft_year_of_overhaul": 2019,
+                "aircraft_picture_url": "/media/RA-02808/avatar.png",
+                "aircraft_picture_urls": {
+                    "salon": "/media/RA-02808/salon.jpg",
+                    "avatar": "/media/RA-02808/avatar.png",
+                    "seats": "/media/RA-02808/seats.png"
+                },
+                "aircraft_class": "Midsize jet",
+                "departure_date": "2024-07-31T21:30:00Z",
+                "arrival_date": "2024-08-01T01:11:09.512897Z",
+                "departure_date_local": "2024-08-01T00:30:00Z",
+                "arrival_date_local": "2024-08-01T04:11:09.512897Z",
+                "departure_airport": "UUWW",
+                "arrival_airport": "URSS",
+                "flight_id": "92735c35-59a1-46db-b968-11aadc9996c1",
+                "operator": "weltall",
+                "operator_logo": "https://site-api.najet.ru/airlines-files/weltall/logo_ru.png",
+                "operator_name": "ООО «Авиакомпания «Вельталь-авиа»",
+                "operator_phone": "+7 (3812) 92-77-17",
+                "operator_email": "charter@weltall.ru",
+                "max_pax": 8,
+                "price": {
+                    "eur": 28525,
+                    "rub": 2685270,
+                    "usd": 31024
+                },
+                "legs": [
+                    {
+                        "departure_airport": "UUWW",
+                        "arrival_airport": "URSS",
+                        "is_emptyleg": false,
+                        "start_date": "2024-07-31T21:30:00Z",
+                        "end_date": "2024-08-01T01:11:09.512897Z",
+                        "type": "flight",
+                        "pax": "1",
+                        "id": "fb24d707-26a2-4831-b741-be073133dad3",
+                        "route_yandex_map": "https://static-maps.yandex.ru/1.x/?l=map&pl=c:000000,f:8822DD40,w:2,37.273,55.5991,38.896265,53.629618,44.257593,53.143586,50.297396,49.212503,48.029229,46.34762,46.805012,44.737436,39.9469,43.4444&pt=37.273,55.5991,1~38.896265,53.629618,2~44.257593,53.143586,3~50.297396,49.212503,4~48.029229,46.34762,5~46.805012,44.737436,6~39.9469,43.4444,7"
+                    },
+                    {
+                        "departure_airport": "URSS",
+                        "arrival_airport": "UUWW",
+                        "is_emptyleg": true,
+                        "start_date": "2024-08-01T16:11:09.512897Z",
+                        "end_date": "2024-08-01T19:52:19.025794Z",
+                        "type": "flight",
+                        "pax": "0",
+                        "id": "cc63d7fb-2bdc-4a83-8ed9-9505840a0a93",
+                        "route_yandex_map": "https://static-maps.yandex.ru/1.x/?l=map&pl=c:000000,f:8822DD40,w:2,37.273,55.5991,38.896265,53.629618,44.257593,53.143586,50.297396,49.212503,48.029229,46.34762,46.805012,44.737436,39.9469,43.4444&pt=37.273,55.5991,1~38.896265,53.629618,2~44.257593,53.143586,3~50.297396,49.212503,4~48.029229,46.34762,5~46.805012,44.737436,6~39.9469,43.4444,7"
+                    }
+                ],
+                "start_date": "2024-07-31T20:15:00Z",
+                "end_date": "2024-08-02T10:37:19.025794Z",
+                "crew": [
+                    {
+                        "5324f36e-0ae1-11ec-9440-50e085cb6389": "22a33612-5309-11ee-8f7e-5254009cc6e0"
+                    }
+                ],
+                "need_agreements": true,
+                "is_discount": false,
+                "discount_url": null,
+                "is_emptyleg": false,
+                "characteristics": {
+                    "cabin_height": "1,75",
+                    "cabin_length": "6,50",
+                    "interior_width": "1,82",
+                    "wing_span": "14,33",
+                    "fuselage_height": "5,36",
+                    "fuselage_length": "15,45",
+                    "flying_range": 3200,
+                    "cruising_speed": 750,
+                    "mtom": 11.567
+                },
+                "pax": 1,
+                "number": "126120-1"
+            },
+            {
+                "aircraft": "RA-02808",
+                "aircraft_type": "Hawker 700",
+                "daylight_only": null,
+                "aircraft_year_of_creation": 1986,
+                "aircraft_year_of_renewal": 2019,
+                "aircraft_year_of_overhaul": 2019,
+                "aircraft_picture_url": "/media/RA-02808/avatar.png",
+                "aircraft_picture_urls": {
+                    "salon": "/media/RA-02808/salon.jpg",
+                    "avatar": "/media/RA-02808/avatar.png",
+                    "seats": "/media/RA-02808/seats.png"
+                },
+                "aircraft_class": "Midsize jet",
+                "departure_date": "2024-08-01T16:11:09.512897Z",
+                "arrival_date": "2024-08-01T19:52:19.025794Z",
+                "departure_date_local": "2024-08-01T19:11:09.512897Z",
+                "arrival_date_local": "2024-08-01T22:52:19.025794Z",
+                "departure_airport": "URSS",
+                "arrival_airport": "UUWW",
+                "flight_id": "0a4e4082-7b47-496e-8a27-4224a70c8ef5",
+                "operator": "weltall",
+                "operator_logo": "https://site-api.najet.ru/airlines-files/weltall/logo_ru.png",
+                "operator_name": "ООО «Авиакомпания «Вельталь-авиа»",
+                "operator_phone": "+7 (3812) 92-77-17",
+                "operator_email": "charter@weltall.ru",
+                "max_pax": 8,
+                "price": {
+                    "eur": 725,
+                    "rub": 68250,
+                    "usd": 789
+                },
+                "legs": [
+                    {
+                        "departure_airport": "URSS",
+                        "arrival_airport": "UUWW",
+                        "is_emptyleg": false,
+                        "start_date": "2024-08-01T16:11:09.512897Z",
+                        "end_date": "2024-08-01T19:52:19.025794Z",
+                        "type": "flight",
+                        "pax": "1",
+                        "id": "92a963ff-db4e-4952-823c-2e31d909d580",
+                        "route_yandex_map": "https://static-maps.yandex.ru/1.x/?l=map&pl=c:000000,f:8822DD40,w:2,37.273,55.5991,38.896265,53.629618,44.257593,53.143586,50.297396,49.212503,48.029229,46.34762,46.805012,44.737436,39.9469,43.4444&pt=37.273,55.5991,1~38.896265,53.629618,2~44.257593,53.143586,3~50.297396,49.212503,4~48.029229,46.34762,5~46.805012,44.737436,6~39.9469,43.4444,7"
+                    }
+                ],
+                "start_date": "2024-08-01T14:56:09.512897Z",
+                "end_date": "2024-08-02T11:37:19.025794Z",
+                "crew": [
+                    {
+                        "5324f36e-0ae1-11ec-9440-50e085cb6389": "22a33612-5309-11ee-8f7e-5254009cc6e0"
+                    }
+                ],
+                "need_agreements": true,
+                "is_discount": false,
+                "discount_url": null,
+                "is_emptyleg": false,
+                "characteristics": {
+                    "cabin_height": "1,75",
+                    "cabin_length": "6,50",
+                    "interior_width": "1,82",
+                    "wing_span": "14,33",
+                    "fuselage_height": "5,36",
+                    "fuselage_length": "15,45",
+                    "flying_range": 3200,
+                    "cruising_speed": 750,
+                    "mtom": 11.567
+                },
+                "pax": 1,
+                "number": "126120-2"
+            }
+        ],
+        "need_agreements": true,
+        "order_by_time": 2,
+        "script": false
+    }
+]
