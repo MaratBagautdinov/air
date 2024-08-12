@@ -39,7 +39,7 @@ export const useFormatTime = (isoString: string) => {
         if (isNaN(date.getTime())) {
             throw new Error("Invalid date format");
         }
-        return date.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC" });
+        return date.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit", hour12: false });
     } catch (error) {
         console.error("Error formatting time:", error);
         return "Invalid time";
@@ -139,7 +139,7 @@ export function getLoverCurrency(currency: T_Currency | string): T_CurrencyLover
 }
 export const formatDateToISO = (dateStr: string, timeStr: string) => {
     if (!dateStr || !timeStr) return "";
-    return `${dateStr}T${timeStr}:00.000Z`;
+    return `${dateStr}T${timeStr}:00.+03`;
 }
 
 export const getSimilarCardId = (card: I_CardsFull | T_Card, cardsList: T_Card[]): I_CardsFull['id'] | undefined => {

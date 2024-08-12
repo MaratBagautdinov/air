@@ -25,6 +25,7 @@
         isOtherPort: boolean
         isOtherTime: boolean
     }>()
+
     const date = useFormatTime(props.date)
     const airport = useFindByIcao(props.airport_icao)
 </script>
