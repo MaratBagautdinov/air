@@ -139,7 +139,7 @@ export function getLoverCurrency(currency: T_Currency | string): T_CurrencyLover
 }
 export const formatDateToISO = (dateStr: string, timeStr: string) => {
     if (!dateStr || !timeStr) return "";
-    return `${dateStr}T${timeStr}:00.+03`;
+    return `${dateStr}T${timeStr}:00+03:00`;
 }
 
 export const getSimilarCardId = (card: I_CardsFull | T_Card, cardsList: T_Card[]): I_CardsFull['id'] | undefined => {

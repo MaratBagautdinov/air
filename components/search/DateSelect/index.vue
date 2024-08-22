@@ -3,7 +3,7 @@
   lang="ts"
 >
   import type { T_Date, T_SearchDate, T_TIME } from "~/types";
-  const { sendPorts, setListCards } = useStore();
+  const { sendPorts, setListCards, getQuery } = useStore();
   const { isBackLine, needSearch } = storeToRefs(useStore());
 
 
@@ -41,6 +41,7 @@
     props.onSelectDate(setDate(dateFull.value.date.full));
     props.onSelectTime(dateFull.value.time);
     isOpened.value = false
+    await useRouter().replace(`/search/2`)
     if (useRoute().fullPath !== '/') {
       await sendPorts().then((res) => {
         setListCards(res.cards)
@@ -63,7 +64,7 @@
     >Когда</span>
     <div
       v-if="windowWidth >= 640"
-      @click="isOpened = true"
+      @click="useRoute().path !== (`/search/2`) ? isOpened = true : null"
       class="flex flex-col"
     >
       <span class="text-22">{{ date.date.formattedDate }}</span>

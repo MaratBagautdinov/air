@@ -2,7 +2,6 @@
   setup
   lang="ts"
 >
-  import type { T_Date } from "~/types.js";
   const { fromPort, toPort, dateBack, datePort, isBackLine } = storeToRefs(useStore());
   const { sendPorts, setDateBack, setDatePort, setListCards } = useStore();
 

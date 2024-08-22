@@ -55,6 +55,7 @@
     selectPort(props.lineType, portNew);
     isOpened.value = false;
     if (useRoute().path !== '/') {
+      await useRouter().replace(`/search/2`)
       await sendPorts().then((res) => {
         setListCards(res.cards)
         useRouter().replace({ path: "/search/" + res.id });

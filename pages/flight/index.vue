@@ -38,8 +38,13 @@
 
       fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
       toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
+      try {
+        setDatePort(setDate(new Date(res.query.departure_date_there)));
+      } catch (error) {
+        console.log(res.query.departure_date_there, error);
 
-      setDatePort(setDate(new Date(res.query.departure_date_there)));
+        setDatePort(setDate(new Date()));
+      }
       datePort.value.time = useFormatTime(res.query.departure_date_there);
       if (res.query.departure_date_back) {
         isBackLine.value = true
@@ -68,6 +73,7 @@
     setListCards(res.cards);
     const newCardID = getSimilarCardId(cardFull.value?.entity, res.cards)
     if (!newCardID) return null
+    await useRouter().replace(`/search/2`)
     const cardNew = await $fetch<I_CardsFull>(useApiCora() + `cards/${newCardID}`)
     cardFull.value = {
       entity: cardNew,
@@ -86,7 +92,7 @@
         msg: '',
         status: false,
       },
-      pending: false
+      pending: true
     }
     const cardNew = await $fetch<I_CardsFull>(useApiCora() + `cards/${card.id}`)
     cardFull.value = {

@@ -25,7 +25,7 @@
     const { datePort } = storeToRefs(useStore());
     const handleSearch = async () => {
         navigateTo({
-            path: `/search/2`,
+            path: `/search/2`
         })
         await sendPorts().then((res) => {
             setListCards(res.cards)

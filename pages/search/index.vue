@@ -26,8 +26,17 @@
       fromPort.value = useFindByIcao(res.query.departure_airport) ?? null;
       toPort.value = useFindByIcao(res.query.arrival_airport) ?? null;
 
-      setDatePort(setDate(new Date(res.query.departure_date_there)))
+      try {
+        const dt = setDate(new Date(res.query.departure_date_there))
+        if (dt) {
+          setDatePort(dt)
+        }
+      } catch (error) {
+        console.error(error);
+
+      }
       datePort.value.time = useFormatTime(res.query.departure_date_there);
+
       if (res.query.departure_date_back) {
         isBackLine.value = true
         setDateBack(setDate(new Date(res.query.departure_date_back)))

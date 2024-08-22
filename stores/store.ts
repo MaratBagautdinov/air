@@ -141,27 +141,29 @@ export const useStore = defineStore("searchFly", {
             }
         },
 
-
+        getQuery() {
+            const formattedDate = formatDateToISO(this.datePort.date.date, this.datePort.time);
+            const formattedDateBack = this.dateBack ? formatDateToISO(this.dateBack.date.date, this.dateBack.time) : '';
+            return {
+                departure_date_there: formattedDate,
+                pax_there: this.passengerCount,
+                departure_airport: this.fromPort?.icao,
+                arrival_airport: this.toPort?.icao,
+                operator: "weltall",
+                ...(this.isBackLine && formattedDateBack && { departure_date_back: formattedDateBack }),
+                ...(this.isBackLine && formattedDateBack && { pax_back: this.passengerCount }),
+            };
+        },
         async sendPorts(): Promise<I_CardsAPI> {
             this.flightState.pending = true;
             this.flightState.error.status = false;
             this.flightState.error.msg = '';
 
-            const formattedDate = formatDateToISO(this.datePort.date.date, this.datePort.time);
-            const formattedDateBack = this.dateBack ? formatDateToISO(this.dateBack.date.date, this.dateBack.time) : '';
             try {
                 if (!this.fromPort || !this.toPort) { return Promise.reject("Не выбраны порты") }
                 const res = await $fetch<I_CardsAPI>(useApiCora() + "cards", {
                     method: "GET",
-                    query: {
-                        departure_date_there: formattedDate,
-                        pax_there: this.passengerCount,
-                        departure_airport: this.fromPort?.icao,
-                        arrival_airport: this.toPort?.icao,
-                        operator: "weltall",
-                        ...(this.isBackLine && formattedDateBack && { departure_date_back: formattedDateBack }),
-                        ...(this.isBackLine && formattedDateBack && { pax_back: this.passengerCount }),
-                    },
+                    query: this.getQuery(),
                 });
 
                 if (res.error?.text) {
