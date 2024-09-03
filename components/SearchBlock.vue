@@ -22,13 +22,23 @@
     lang="ts"
 >
     const { sendPorts, setDatePort, setListCards } = useStore();
-    const { datePort } = storeToRefs(useStore());
+    const { datePort, flightState } = storeToRefs(useStore());
     const handleSearch = async () => {
         navigateTo({
             path: `/search/2`
         })
         await sendPorts().then((res) => {
             setListCards(res.cards)
+            if (res.error?.text) {
+                flightState.value = {
+                    pending: false,
+                    error: {
+                        status: true,
+                        msg: res.error.text,
+                    },
+                    entity: res,
+                }
+            }
             useRouter().replace(`/search/${res.id}`)
         })
     };

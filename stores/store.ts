@@ -149,7 +149,6 @@ export const useStore = defineStore("searchFly", {
                 pax_there: this.passengerCount,
                 departure_airport: this.fromPort?.icao,
                 arrival_airport: this.toPort?.icao,
-                operator: "weltall",
                 ...(this.isBackLine && formattedDateBack && { departure_date_back: formattedDateBack }),
                 ...(this.isBackLine && formattedDateBack && { pax_back: this.passengerCount }),
             };
@@ -167,8 +166,15 @@ export const useStore = defineStore("searchFly", {
                 });
 
                 if (res.error?.text) {
-                    this.flightState.error.status = true;
-                    this.flightState.error.msg = res.error.text;
+                    this.flightState = {
+                        pending: false,
+                        error: {
+                            status: true,
+                            msg: res.error.text,
+                        },
+                        entity: res,
+                    }
+                    console.log(this.flightState, res);
                     return res;
                 }
                 if (this.passengerCount > 8 && res.cards.length === 0) {

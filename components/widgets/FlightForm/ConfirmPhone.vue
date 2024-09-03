@@ -29,7 +29,11 @@
           type="submit"
         />
       </div>
-      <p style="color: orangered" class="text-20 pt-3" v-if="formState.error = true">
+      <p
+        style="color: orangered"
+        class="text-20 pt-3"
+        v-if="formState.error = true"
+      >
         {{ formState.msg ?? 'Ошибка подтверждения' }}
       </p>
     </form>

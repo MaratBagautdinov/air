@@ -8,9 +8,6 @@
   const windowWidth = useState<number>("winWidth");
   const route = useRoute()
 
-  flightState.value.pending = true;
-  flightState.value.error.status = false;
-  flightState.value.error.msg = '';
   const { data, refresh } = useLazyFetch(useApiCora() + `requests/${route.params.slug}`, {
     key: Date.now().toString(),
     onResponse: ({ response }) => {
@@ -20,6 +17,8 @@
         flightState.value.error.status = true;
         flightState.value.error.msg = res.error.text;
       }
+      console.log(flightState.value, res);
+
       setListCards(res.cards);
       passengerCount.value = res.query.pax_there;
 
@@ -47,6 +46,17 @@
   const handleSearch = () => {
     sendPorts().then((res) => {
       setListCards(res.cards)
+
+      if (res.error?.text) {
+        flightState.value = {
+          pending: false,
+          error: {
+            status: true,
+            msg: res.error.text,
+          },
+          entity: res,
+        }
+      }
       useRouter().replace(`/search/${res.id}`)
     })
   }
