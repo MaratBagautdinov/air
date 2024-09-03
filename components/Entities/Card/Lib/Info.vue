@@ -45,14 +45,13 @@
 
     const arr = [];
     const { start_date } = props.leg;
-
     if (props.planeRoute === 'to') {
-      if (start_date !== `${datePort.value.date.date}T${datePort.value.time}:00Z`) {
+      if (!start_date.startsWith(`${datePort.value.date.date}T${datePort.value.time}`)) {
         arr.push(start_date);
       }
     }
     else if (props.planeRoute === 'from') {
-      if (start_date !== `${dateBack.value.date.date}T${dateBack.value.time}:00Z`) {
+      if (!start_date.startsWith(`${dateBack.value.date.date}T${dateBack.value.time}`)) {
         arr.push(start_date);
       }
     }

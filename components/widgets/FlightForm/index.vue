@@ -115,11 +115,10 @@
             />
             <span class="text-16">
               Я ознакомлен(а) и принимаю
-              <span class="underline">Условия использования персональных данных,</span>
-              <span class="underline">Правила Сервиса NAJET,</span>
-              <span class="underline">Компенсации за отказ от перевозки</span>
+              <a href="/policy" target="_blank" class="underline">Условия использования персональных данных,
+              Правила Сервиса NAJET, Компенсации за отказ от перевозки</a>
               и
-              <span class="underline">Правила перелета пассажиров Авиакомпан ии.</span>
+              <a href="https://disk.yandex.ru/i/oU7tKkmhgt-w4g" target="_blank" class="underline">Правила перелета пассажиров Авиакомпан ии.</a>
             </span>
           </div>
 
