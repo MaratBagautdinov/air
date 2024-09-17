@@ -140,8 +140,8 @@
           <div
             class="overflow-hidden h-[90vh] pb-5 w-full"
             v-if="filteredFromList && filteredFromList.length > 0"
-          >
-            <ul class="grid grid-cols-3 gap-[32px_8px] max-[640px]:grid-cols-2  overflow-y-scroll h-full ">
+          > 
+            <ul class="bg-dark grid grid-cols-3 gap-[32px_8px] max-[640px]:grid-cols-2  overflow-y-scroll h-full ">
               <template v-for="(item, i) in filteredFromList">
                 <li
                   v-if="item !== null"
